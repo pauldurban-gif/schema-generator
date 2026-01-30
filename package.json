@@ -1,0 +1,12 @@
+{
+  "name": "schema-generator",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Schema.org markup generator",
+  "scripts": {
+    "start": "node api/generate.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.32.1"
+  }
+}

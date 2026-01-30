@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Schema Markup Generator | Filament</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #0a0a14;
+      color: #e8e8e8;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+    .container { max-width: 1000px; margin: 0 auto; }
+    h1 {
+      font-size: 2.5em;
+      background: linear-gradient(135deg, #19e5af, #16c79a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+    .subtitle { text-align: center; color: #a0a0a0; margin-bottom: 40px; }
+    .card {
+      background: #1a1a2e;
+      border: 1px solid #2a2a3e;
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 30px;
+    }
+    h2 { color: #16c79a; margin-bottom: 20px; }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #16c79a;
+      font-weight: 600;
+      font-size: 0.9em;
+    }
+    input, select {
+      width: 100%;
+      padding: 12px;
+      background: #16161f;
+      border: 1px solid #2a2a3e;
+      border-radius: 6px;
+      color: #e8e8e8;
+      font-size: 1em;
+      margin-bottom: 20px;
+    }
+    .schema-types {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .schema-type-btn {
+      padding: 12px;
+      background: #16161f;
+      border: 1px solid #2a2a3e;
+      border-radius: 6px;
+      color: #a0a0a0;
+      cursor: pointer;
+      font-size: 0.9em;
+    }
+    .schema-type-btn.active {
+      background: #16c79a;
+      color: #1a1a2e;
+      border-color: #16c79a;
+    }
+    .btn {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, #16c79a, #19e5af);
+      border: none;
+      border-radius: 8px;
+      color: #1a1a2e;
+      font-size: 1.1em;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .btn:disabled {
+      background: #2a2a3e;
+      color: #666;
+      cursor: not-allowed;
+    }
+    .loading {
+      text-align: center;
+      padding: 40px;
+      background: #1a1a2e;
+      border: 2px solid #16c79a;
+      border-radius: 12px;
+      margin-top: 20px;
+    }
+    .loading-icon { font-size: 2em; margin-bottom: 15px; }
+    .preview-card {
+      background: linear-gradient(135deg, rgba(15, 52, 96, 0.3), rgba(26, 26, 46, 0.5));
+      border: 2px solid #16c79a;
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 30px;
+    }
+    .preview-badge {
+      display: inline-block;
+      background: rgba(22, 199, 154, 0.2);
+      color: #16c79a;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.8em;
+      margin-bottom: 15px;
+    }
+    .preview-title {
+      font-size: 1.5em;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .preview-desc {
+      color: #a0a0a0;
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+    .preview-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      padding-top: 15px;
+      border-top: 1px solid #2a2a3e;
+      font-size: 0.9em;
+    }
+    .code-box {
+      background: #16161f;
+      border-radius: 8px;
+      padding: 20px;
+      max-height: 400px;
+      overflow-y: auto;
+      position: relative;
+      margin-bottom: 20px;
+    }
+    .copy-btn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      padding: 10px 20px;
+      background: #16c79a;
+      border: none;
+      border-radius: 6px;
+      color: #1a1a2e;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    pre { margin: 0; white-space: pre-wrap; word-break: break-word; color: #e8e8e8; font-size: 0.9em; }
+    .improvement-item {
+      padding: 12px;
+      margin-bottom: 10px;
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      gap: 10px;
+    }
+    .improvement-item.selected {
+      background: rgba(22, 199, 154, 0.1);
+      border-color: #16c79a;
+    }
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    .comparison-before {
+      opacity: 0.7;
+      background: linear-gradient(135deg, rgba(50, 50, 60, 0.3), rgba(40, 40, 50, 0.5));
+      border: 1px solid #2a2a3e;
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .comparison-after {
+      background: linear-gradient(135deg, rgba(15, 52, 96, 0.3), rgba(26, 26, 46, 0.5));
+      border: 2px solid #16c79a;
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .error {
+      background: rgba(255, 70, 70, 0.1);
+      border: 1px solid #ff4646;
+      border-radius: 8px;
+      padding: 15px;
+      color: #ff8888;
+      margin-top: 20px;
+    }
+    .download-btns {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+    .download-btn {
+      flex: 1;
+      padding: 12px;
+      background: #16161f;
+      border: 1px solid #2a2a3e;
+      border-radius: 6px;
+      color: #e8e8e8;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Schema Markup Generator</h1>
+    <p class="subtitle">Optimize your web pages for search engines and AI models</p>
+
+    <div class="card">
+      <h2>Generate Your Schema</h2>
+      
+      <label>Website URL</label>
+      <input type="url" id="urlInput" placeholder="example.com or https://example.com">
+
+      <label>Schema Type (Optional)</label>
+      <div class="schema-types" id="schemaTypes">
+        <button class="schema-type-btn active" data-type="auto">Auto-Detect</button>
+        <button class="schema-type-btn" data-type="Article">Article</button>
+        <button class="schema-type-btn" data-type="Product">Product</button>
+        <button class="schema-type-btn" data-type="LocalBusiness">Business</button>
+        <button class="schema-type-btn" data-type="Event">Event</button>
+        <button class="schema-type-btn" data-type="Organization">Organization</button>
+      </div>
+
+      <button class="btn" id="generateBtn">Generate Schema Markup</button>
+
+      <div id="loading" class="loading" style="display:none;">
+        <div class="loading-icon">🔍</div>
+        <h3 style="color: #16c79a; margin-bottom: 10px;">Analyzing Your Website</h3>
+        <p style="color: #a0a0a0;">Crawling multiple pages...</p>
+      </div>
+
+      <div id="error" class="error" style="display:none;"></div>
+    </div>
+
+    <div id="results" style="display:none;">
+      <!-- Initial Results -->
+      <div id="initialResults" class="card">
+        <h2>Your Search Result Preview</h2>
+        <p style="color: #a0a0a0; margin-bottom: 20px;">This is how your page will appear in AI search results:</p>
+        
+        <div id="preview" class="preview-card"></div>
+
+        <h3 style="margin-bottom: 15px;">Generated Schema Code</h3>
+        <div class="code-box">
+          <button class="copy-btn" onclick="copySchema()">Copy Code</button>
+          <pre id="schemaCode"></pre>
+        </div>
+
+        <div class="download-btns">
+          <button class="download-btn" onclick="downloadJSON()">📥 Download JSON</button>
+          <button class="download-btn" onclick="downloadTXT()">📄 Download TXT</button>
+        </div>
+
+        <div id="improvementsSection" style="display:none; padding-top: 30px; border-top: 1px solid #2a2a3e;">
+          <h3 style="margin-bottom: 15px;">Select Improvements to Apply</h3>
+          <div style="padding: 20px; background: rgba(255, 183, 77, 0.1); border: 1px solid #ffb74d; border-radius: 8px;">
+            <div id="improvementsList"></div>
+            <button class="btn" id="updateBtn" style="margin-top: 15px;" disabled>🚀 Update Schema (0 selected)</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Updated Results -->
+      <div id="updatedResults" class="card" style="display:none;">
+        <h2>Before & After Comparison</h2>
+        <p style="color: #a0a0a0; margin-bottom: 30px;">See how your improvements enhanced your search result:</p>
+
+        <div class="comparison-grid">
+          <div class="comparison-before">
+            <h4 style="margin-bottom: 15px; color: #a0a0a0;">📋 Before (Original)</h4>
+            <div id="beforePreview"></div>
+          </div>
+          <div class="comparison-after">
+            <h4 style="margin-bottom: 15px; color: #16c79a;">✨ After (Improved)</h4>
+            <div id="afterPreview"></div>
+          </div>
+        </div>
+
+        <div style="padding: 15px 20px; background: rgba(22, 199, 154, 0.1); border: 2px solid #16c79a; border-radius: 8px; margin-bottom: 20px;">
+          <span style="font-size: 1.2em;">✓</span>
+          <span style="color: #16c79a; font-weight: 600; margin-left: 10px;">Updated Schema (With Your Selected Improvements)</span>
+        </div>
+
+        <div class="code-box" style="border: 2px solid #16c79a;">
+          <button class="copy-btn" onclick="copySchema()">Copy Updated Code</button>
+          <pre id="updatedSchemaCode"></pre>
+        </div>
+
+        <div class="download-btns">
+          <button class="download-btn" style="border-color: #16c79a;" onclick="downloadJSON()">📥 Download Updated JSON</button>
+          <button class="download-btn" style="border-color: #16c79a;" onclick="downloadTXT()">📄 Download Updated TXT</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentState = {
+      url: '',
+      schemaType: 'auto',
+      schema: '',
+      originalSchema: '',
+      improvements: [],
+      selectedImprovements: [],
+      updated: false
+    };
+
+    // Schema type selection
+    document.getElementById('schemaTypes').addEventListener('click', (e) => {
+      if (e.target.classList.contains('schema-type-btn')) {
+        document.querySelectorAll('.schema-type-btn').forEach(btn => btn.classList.remove('active'));
+        e.target.classList.add('active');
+        currentState.schemaType = e.target.dataset.type;
+      }
+    });
+
+    // Generate schema
+    document.getElementById('generateBtn').addEventListener('click', async () => {
+      const url = document.getElementById('urlInput').value.trim();
+      if (!url) {
+        alert('Please enter a URL');
+        return;
+      }
+
+      let processedUrl = url;
+      if (!processedUrl.match(/^https?:\/\//i)) {
+        processedUrl = 'https://' + processedUrl;
+      }
+
+      currentState.url = processedUrl;
+      currentState.updated = false;
+
+      document.getElementById('generateBtn').disabled = true;
+      document.getElementById('loading').style.display = 'block';
+      document.getElementById('results').style.display = 'none';
+      document.getElementById('error').style.display = 'none';
+
+      try {
+        const response = await fetch('/api/generate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ url: processedUrl, schemaType: currentState.schemaType })
+        });
+
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error);
+
+        currentState.schema = data.schema;
+        currentState.originalSchema = data.schema;
+        currentState.improvements = data.improvements || [];
+
+        displayResults();
+
+      } catch (error) {
+        document.getElementById('error').textContent = error.message;
+        document.getElementById('error').style.display = 'block';
+      } finally {
+        document.getElementById('generateBtn').disabled = false;
+        document.getElementById('loading').style.display = 'none';
+      }
+    });
+
+    // Display results
+    function displayResults() {
+      document.getElementById('results').style.display = 'block';
+      document.getElementById('initialResults').style.display = currentState.updated ? 'none' : 'block';
+      document.getElementById('updatedResults').style.display = currentState.updated ? 'block' : 'none';
+
+      if (!currentState.updated) {
+        const preview = parseSchema(currentState.schema);
+        document.getElementById('preview').innerHTML = renderPreview(preview);
+        document.getElementById('schemaCode').textContent = currentState.schema;
+
+        if (currentState.improvements.length > 0) {
+          document.getElementById('improvementsSection').style.display = 'block';
+          renderImprovements();
+        }
+      } else {
+        const before = parseSchema(currentState.originalSchema);
+        const after = parseSchema(currentState.schema);
+        document.getElementById('beforePreview').innerHTML = renderPreviewSimple(before);
+        document.getElementById('afterPreview').innerHTML = renderPreviewSimple(after);
+        document.getElementById('updatedSchemaCode').textContent = currentState.schema;
+      }
+    }
+
+    // Parse schema
+    function parseSchema(code) {
+      try {
+        let json = code.trim();
+        const start = json.indexOf('{');
+        if (start > 0) json = json.substring(start);
+        
+        let count = 0, end = -1;
+        for (let i = 0; i < json.length; i++) {
+          if (json[i] === '{') count++;
+          if (json[i] === '}' && --count === 0) {
+            end = i + 1;
+            break;
+          }
+        }
+        if (end > 0) json = json.substring(0, end);
+
+        const schema = JSON.parse(json);
+        const actual = schema['@graph'] ? schema['@graph'][0] : schema;
+
+        return {
+          type: actual['@type'] || 'Content',
+          title: actual.name || actual.headline || 'Title',
+          description: actual.description || 'Description',
+          telephone: actual.telephone,
+          email: actual.email,
+          location: actual.location?.name || actual.location,
+          url: actual.url
+        };
+      } catch (e) {
+        return { type: 'Unknown', title: 'Schema Generated', description: 'Preview unavailable' };
+      }
+    }
+
+    // Render preview
+    function renderPreview(p) {
+      let meta = '';
+      if (p.telephone) meta += `<span>Phone: ${p.telephone}</span>`;
+      if (p.email) meta += `<span>Email: ${p.email}</span>`;
+      if (p.location) meta += `<span>Location: ${p.location}</span>`;
+      if (p.url) meta += `<span>Website: ${p.url}</span>`;
+
+      return `
+        <div class="preview-badge">✓ Schema: ${p.type}</div>
+        <div class="preview-title">${p.title}</div>
+        <div class="preview-desc">${p.description}</div>
+        ${meta ? `<div class="preview-meta">${meta}</div>` : ''}
+      `;
+    }
+
+    function renderPreviewSimple(p) {
+      return `
+        <div style="font-size: 0.75em; color: #a0a0a0; margin-bottom: 10px;">Schema: ${p.type}</div>
+        <div style="font-size: 1.1em; font-weight: 700; margin-bottom: 8px;">${p.title}</div>
+        <div style="color: #a0a0a0; font-size: 0.9em;">${p.description.substring(0, 100)}...</div>
+      `;
+    }
+
+    // Render improvements
+    function renderImprovements() {
+      const html = currentState.improvements.map((imp, idx) => `
+        <div class="improvement-item" onclick="toggleImprovement(${idx})">
+          <input type="checkbox" ${currentState.selectedImprovements.includes(idx) ? 'checked' : ''} 
+                 onclick="event.stopPropagation();" onchange="toggleImprovement(${idx})">
+          <span>${imp}</span>
+        </div>
+      `).join('');
+      document.getElementById('improvementsList').innerHTML = html;
+      updateBtn();
+    }
+
+    function toggleImprovement(idx) {
+      if (currentState.selectedImprovements.includes(idx)) {
+        currentState.selectedImprovements = currentState.selectedImprovements.filter(i => i !== idx);
+      } else {
+        currentState.selectedImprovements.push(idx);
+      }
+      renderImprovements();
+    }
+
+    function updateBtn() {
+      const count = currentState.selectedImprovements.length;
+      const btn = document.getElementById('updateBtn');
+      btn.textContent = `🚀 Update Schema (${count} selected)`;
+      btn.disabled = count === 0;
+    }
+
+    // Update schema
+    document.getElementById('updateBtn').addEventListener('click', async () => {
+      const selected = currentState.selectedImprovements.map(i => currentState.improvements[i]);
+      
+      document.getElementById('updateBtn').disabled = true;
+      document.getElementById('updateBtn').textContent = '⚙️ Updating...';
+
+      try {
+        const response = await fetch('/api/update', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            url: currentState.url,
+            originalSchema: currentState.originalSchema,
+            improvements: selected
+          })
+        });
+
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error);
+
+        currentState.schema = data.schema;
+        currentState.updated = true;
+        displayResults();
+
+      } catch (error) {
+        alert('Update failed: ' + error.message);
+      } finally {
+        document.getElementById('updateBtn').disabled = false;
+        updateBtn();
+      }
+    });
+
+    // Copy to clipboard
+    function copySchema() {
+      navigator.clipboard.writeText(currentState.schema).then(() => alert('Copied!'));
+    }
+
+    // Download
+    function downloadJSON() {
+      const blob = new Blob([currentState.schema], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'schema.json';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function downloadTXT() {
+      const blob = new Blob([currentState.schema], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'schema.txt';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    // Enter key support
+    document.getElementById('urlInput').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') document.getElementById('generateBtn').click();
+    });
+  </script>
+</body>
+</html>

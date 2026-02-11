@@ -1,0 +1,1519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Schema Markup Generator | Filament Essential Services</title>
+  
+  <!-- Fonts -->
+  <link rel="stylesheet" href="https://use.typekit.net/lox7nqm.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Maven Pro', Helvetica, Arial, Lucida, sans-serif;
+      background: #f8f9fa;
+      color: #2c3e50;
+      line-height: 1.6;
+      padding: 20px;
+    }
+    
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    /* Headers */
+    h1, h2, h3, h4, h5, h6 {
+      font-family: "sofia-pro-soft", sans-serif !important;
+    }
+    
+    /* Header */
+    h1 {
+      font-size: 2.5em;
+      font-weight: 700;
+      color: #1e3a8a;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+    
+    .subtitle {
+      font-size: 1.2em;
+      color: #64748b;
+      text-align: center;
+      margin-bottom: 40px;
+      font-weight: 400;
+    }
+    
+    /* Cards */
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 35px;
+      margin-bottom: 25px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    
+    .card h2 {
+      font-size: 1.8em;
+      color: #1e3a8a;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+    
+    .card h3 {
+      font-size: 1.3em;
+      color: #2563eb;
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+    
+    .card h4 {
+      font-size: 1.1em;
+      color: #1e3a8a;
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+    
+    /* Form Elements */
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #334155;
+      font-size: 0.95em;
+      font-family: "sofia-pro-soft", sans-serif !important;
+    }
+    
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    textarea {
+      font-family: 'Maven Pro', sans-serif;
+    }
+    
+    input[type="url"] {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 1em;
+      margin-bottom: 8px;
+      transition: border-color 0.2s;
+      background: white;
+      color: #1e293b;
+    }
+    
+    input[type="url"]:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+    
+    /* Buttons */
+    .btn {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-top: 10px;
+      font-family: "sofia-pro-soft", sans-serif !important;
+    }
+    
+    .btn:hover:not(:disabled) {
+      background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    }
+    
+    .btn:disabled {
+      background: #94a3b8;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    /* Collapsible Sections */
+    .collapsible-section {
+      margin-bottom: 25px;
+    }
+    
+    .collapsible-header {
+      background: #f1f5f9;
+      padding: 16px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.2s;
+      border: 1px solid #e2e8f0;
+    }
+    
+    .collapsible-header:hover {
+      background: #e2e8f0;
+    }
+    
+    .collapsible-header h3 {
+      margin: 0;
+      color: #1e3a8a;
+      font-size: 1.2em;
+      font-weight: 600;
+    }
+    
+    .arrow {
+      font-size: 1.2em;
+      transition: transform 0.3s;
+      color: #64748b;
+    }
+    
+    .collapsible-header.active .arrow {
+      transform: rotate(180deg);
+    }
+    
+    .collapsible-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+    
+    .collapsible-content.active {
+      max-height: 2000px;
+      transition: max-height 0.5s ease-in;
+    }
+    
+    .collapsible-inner {
+      padding: 20px;
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-top: none;
+      border-radius: 0 0 8px 8px;
+    }
+    
+    .collapsible-inner ul {
+      margin-left: 20px;
+      color: #64748b;
+    }
+    
+    .collapsible-inner li {
+      margin-bottom: 8px;
+    }
+    
+    /* Loading State */
+    .loading {
+      text-align: center;
+      padding: 40px;
+      background: white;
+      border: 2px solid #3b82f6;
+      border-radius: 12px;
+      margin-top: 20px;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+    }
+    
+    .loading h3 {
+      color: #1e3a8a;
+      margin-bottom: 10px;
+      font-size: 1.3em;
+    }
+    
+    .loading-icon { 
+      font-size: 2.5em; 
+      margin-bottom: 15px;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(1.1); }
+    }
+    
+    .progress-container {
+      width: 100%;
+      max-width: 400px;
+      height: 8px;
+      background: #e2e8f0;
+      border-radius: 4px;
+      margin: 20px auto;
+      overflow: hidden;
+    }
+    
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #3b82f6, #2563eb);
+      border-radius: 4px;
+      transition: width 0.3s ease;
+    }
+    
+    .loading-steps {
+      margin-top: 15px;
+      color: #64748b;
+      font-size: 0.9em;
+    }
+    
+    .loading-step {
+      padding: 8px 0;
+      opacity: 0.5;
+      transition: opacity 0.3s;
+    }
+    
+    .loading-step.active {
+      opacity: 1;
+      color: #2563eb;
+      font-weight: 600;
+    }
+    
+    .loading-step.complete {
+      opacity: 0.7;
+      color: #334155;
+    }
+    
+    .loading-step.complete::before {
+      content: "✓ ";
+      color: #10b981;
+      font-weight: 700;
+    }
+    
+    /* Error State */
+    .error {
+      background: #fee2e2;
+      border: 2px solid #ef4444;
+      border-radius: 8px;
+      padding: 16px;
+      margin-top: 20px;
+      color: #991b1b;
+      font-weight: 500;
+    }
+    
+    /* Preview Card */
+    .preview-card {
+      background: linear-gradient(135deg, #dbeafe 0%, #e0f2fe 100%);
+      border: 3px solid #3b82f6;
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 25px;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+    }
+    
+    .preview-badge {
+      display: inline-block;
+      background: #1e40af;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 0.9em;
+      font-weight: 700;
+      margin-bottom: 15px;
+      box-shadow: 0 2px 4px rgba(30, 64, 175, 0.3);
+    }
+    
+    .preview-title {
+      font-size: 1.8em;
+      font-weight: 700;
+      color: #0c4a6e;
+      margin-bottom: 12px;
+    }
+    
+    .preview-desc {
+      color: #0f172a;
+      line-height: 1.7;
+      margin-bottom: 18px;
+      font-size: 1.05em;
+    }
+    
+    .preview-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding-top: 18px;
+      border-top: 2px solid #3b82f6;
+    }
+    
+    .preview-meta span {
+      color: #1e40af;
+      font-size: 0.95em;
+      font-weight: 500;
+    }
+    
+    .preview-meta strong {
+      color: #0c4a6e;
+      font-weight: 700;
+    }
+    
+    /* Details/Accordion */
+    details {
+      margin-bottom: 20px;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    
+    summary {
+      padding: 14px 18px;
+      background: #f8fafc;
+      cursor: pointer;
+      font-weight: 600;
+      color: #1e3a8a;
+      user-select: none;
+      transition: background 0.2s;
+      font-family: "sofia-pro-soft", sans-serif !important;
+    }
+    
+    summary:hover {
+      background: #f1f5f9;
+    }
+    
+    details[open] summary {
+      border-radius: 8px 8px 0 0;
+      margin-bottom: 0;
+      background: #e0f2fe;
+      color: #0c4a6e;
+    }
+    
+    details .details-content {
+      padding: 20px;
+      background: white;
+    }
+    
+    /* Download Buttons */
+    .download-btns {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+    
+    .download-btn {
+      flex: 1;
+      padding: 16px;
+      background: white;
+      border: 2px solid #cbd5e1;
+      border-radius: 8px;
+      color: #334155;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s;
+      font-family: "sofia-pro-soft", sans-serif !important;
+    }
+    
+    .download-btn:hover {
+      background: #f8fafc;
+      border-color: #3b82f6;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(59, 130, 246, 0.15);
+    }
+    
+    .copy-btn {
+      padding: 10px 20px;
+      background: #3b82f6;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: "sofia-pro-soft", sans-serif !important;
+    }
+    
+    .copy-btn:hover {
+      background: #2563eb;
+      transform: translateY(-1px);
+      box-shadow: 0 3px 8px rgba(59, 130, 246, 0.3);
+    }
+    
+    /* Info Boxes */
+    .info-box {
+      padding: 15px 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      line-height: 1.7;
+    }
+    
+    .info-box-blue {
+      background: rgba(59, 130, 246, 0.08);
+      border-left: 4px solid #3b82f6;
+    }
+    
+    .info-box-green {
+      background: rgba(16, 185, 129, 0.08);
+      border-left: 4px solid #10b981;
+    }
+    
+    .info-box-yellow {
+      background: rgba(245, 158, 11, 0.08);
+      border-left: 4px solid #f59e0b;
+    }
+    
+    /* Code Blocks */
+    code {
+      background: #f1f5f9;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9em;
+      color: #1e40af;
+      border: 1px solid #cbd5e1;
+    }
+    
+    pre {
+      background: #1e293b;
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      color: #e2e8f0;
+      font-size: 0.9em;
+      line-height: 1.5;
+    }
+    
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      color: #64748b;
+      font-size: 0.9em;
+      margin-top: 40px;
+      border-top: 1px solid #e2e8f0;
+    }
+    
+    footer a {
+      color: #2563eb;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    
+    footer a:hover {
+      color: #1d4ed8;
+      text-decoration: underline;
+    }
+    
+    /* Utility Classes */
+    .text-center { text-align: center; }
+    .mb-20 { margin-bottom: 20px; }
+    .mt-30 { margin-top: 30px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Schema Markup Generator</h1>
+    <p class="subtitle">Help people find your nonprofit's services, donate, and get involved</p>
+
+    <!-- Info Section -->
+    <div class="collapsible-section">
+      <div class="collapsible-header" onclick="toggleSection('infoSection')">
+        <h3>📚 What is Schema Markup & Why Does It Matter?</h3>
+        <span class="arrow">▼</span>
+      </div>
+      <div id="infoSection" class="collapsible-content">
+        <div class="collapsible-inner">
+          <h4 style="color: #2563eb; margin-bottom: 12px;">What is Schema Markup?</h4>
+          <p style="color: #64748b; line-height: 1.7; margin-bottom: 15px;">
+            Schema markup (also called structured data) is code you add to your website that helps search engines and AI models like ChatGPT, Claude, and Perplexity understand your organization's key information. Think of it as a "nutrition label" for your website—it clearly labels who you are, what services you provide, where you're located, and how people can support your mission.
+          </p>
+          
+          <h4 style="color: #2563eb; margin-bottom: 12px;">Why is it Important for Nonprofits?</h4>
+          <p style="color: #64748b; line-height: 1.7; margin-bottom: 12px;">
+            When people search for services, volunteer opportunities, or organizations to support, AI models prioritize websites with clear, structured data. Schema markup helps your nonprofit appear in AI-generated answers with:
+          </p>
+          <ul style="color: #64748b; line-height: 1.7; margin-left: 20px; margin-bottom: 15px;">
+            <li style="margin-bottom: 8px;"><strong style="color: #334155;">Contact Information:</strong> Phone, email, and contact forms appear directly in search results</li>
+            <li style="margin-bottom: 8px;"><strong style="color: #334155;">Services & Programs:</strong> Clear descriptions of who you serve and how you help</li>
+            <li style="margin-bottom: 8px;"><strong style="color: #334155;">Location & Hours:</strong> When and where people can visit or reach you</li>
+            <li style="margin-bottom: 8px;"><strong style="color: #334155;">Donation & Volunteer Info:</strong> Easy pathways for supporters to get involved</li>
+            <li style="margin-bottom: 8px;"><strong style="color: #334155;">Mission & Impact:</strong> What makes your organization unique</li>
+            <li style="margin-bottom: 8px;"><strong style="color: #334155;">Team & Leadership:</strong> Names and roles that build credibility</li>
+          </ul>
+          <p style="color: #1e293b; line-height: 1.7; font-weight: 600;">
+            Bottom line: Schema markup makes it easier for people to find your services, donate, volunteer, or get help when they need it.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Generator Form -->
+    <div class="card">
+      <h2>Generate Your Schema</h2>
+      
+      <div class="info-box info-box-blue">
+        <p style="color: #1e293b; margin: 0;">
+          <strong style="color: #1e3a8a;">💡 How it works:</strong> This tool automatically scans your website's main pages and extracts text-based information to create schema markup. 
+          For best results, make sure important details (mission, services, contact info, programs) are clearly displayed as text in prominent areas—not just in images, PDFs, or footer sections. 
+          <strong style="color: #2563eb;">The generated schema is a starting point that you can manually refine before implementing.</strong>
+        </p>
+      </div>
+      
+      <label>Website URL</label>
+      <input type="url" id="urlInput" placeholder="yournonprofit.org or https://yournonprofit.org">
+      <p style="color: #64748b; font-size: 0.85em; margin: -5px 0 20px 0;">We'll automatically detect the best schema type for your organization</p>
+
+      <button class="btn" id="generateBtn">Generate Schema Markup</button>
+      <p style="color: #64748b; font-size: 0.85em; margin-top: 10px; text-align: center;">
+        Processing typically takes 30-60 seconds. Complex sites may take longer.<br>
+        <span style="font-size: 0.9em; font-style: italic;">If the preview looks incomplete, try regenerating - AI results can vary slightly.</span>
+      </p>
+
+      <div id="loading" class="loading" style="display:none;">
+        <div class="loading-icon">🔍</div>
+        <h3>Analyzing Your Organization's Website</h3>
+        <div class="progress-container">
+          <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+        </div>
+        <div class="loading-steps">
+          <div class="loading-step" id="step1">Fetching homepage and mission...</div>
+          <div class="loading-step" id="step2">Scanning programs and services...</div>
+          <div class="loading-step" id="step3">Finding contact and location info...</div>
+          <div class="loading-step" id="step4">Extracting team and leadership...</div>
+          <div class="loading-step" id="step5">Generating comprehensive schema...</div>
+        </div>
+      </div>
+
+      <div id="error" class="error" style="display:none;"></div>
+    </div>
+
+    <div id="results" style="display:none;">
+      <!-- Preview Section -->
+      <div class="card">
+        <h2>✨ Your Schema Results</h2>
+        
+        <div style="padding: 15px 20px; background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); border: 2px solid #3b82f6; border-radius: 8px; margin-bottom: 25px;">
+          <h3 style="color: #1e40af; margin: 0; font-size: 1.3em;">
+            👀 Preview: How Your Organization Appears in AI Search Results
+          </h3>
+        </div>
+        
+        <div id="preview" class="preview-card"></div>
+
+        <details style="margin-top: 25px;">
+          <summary style="background: #f0fdf4; color: #065f46; border: 2px solid #10b981; padding: 16px; border-radius: 8px; cursor: pointer; font-weight: 600;">
+            📊 About Your Results
+          </summary>
+          <div class="details-content" style="background: #f0fdf4;">
+            <p style="color: #064e3b; line-height: 1.7; margin-bottom: 12px;">
+              This schema was created by automatically scanning your website's main pages. <strong>AI-generated results can vary slightly between runs</strong> - if the preview looks incomplete or you notice missing information, try regenerating to get a different result.
+            </p>
+            <p style="color: #064e3b; line-height: 1.7; margin-bottom: 12px;">
+              Automated tools sometimes miss information that's:
+            </p>
+            <ul style="color: #064e3b; line-height: 1.7; margin-left: 20px; margin-bottom: 12px;">
+              <li><strong>In footer or header areas</strong> (common for phone/address)</li>
+              <li>Only in images or PDFs (not as text)</li>
+              <li>Hidden in expandable menus or tabs</li>
+              <li>Behind forms or login pages</li>
+              <li>On pages we didn't scan (deep subpages)</li>
+            </ul>
+            <p style="color: #064e3b; line-height: 1.7; margin-bottom: 0; font-size: 0.9em;">
+              <strong>Want a more complete schema next time?</strong> Move critical information (contact details, hours, key services) from footer areas into your main page content where automated tools can more easily find it.
+            </p>
+          </div>
+        </details>
+      </div>
+
+      <!-- STEP 1: Review & Customize Section -->
+      <div id="reviewSection" class="card">
+        <h2>Review & Customize Your Schema</h2>
+        <p style="color: #64748b; margin-bottom: 25px; line-height: 1.6;">
+          We've generated schema based on your website. Review the preview above - if anything is missing or incorrect, add it here:
+        </p>
+
+        <div style="background: #f8fafc; padding: 25px; border-radius: 8px; border: 2px solid #e2e8f0;">
+          
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+            <div>
+              <label for="editOrgName">Organization Name</label>
+              <input type="text" id="editOrgName" placeholder="Your Organization Name" style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 6px; font-size: 0.95em;">
+            </div>
+            <div>
+              <label for="editUrl">Website URL</label>
+              <input type="url" id="editUrl" placeholder="https://yourorg.org" style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 6px; font-size: 0.95em;">
+            </div>
+          </div>
+
+          <div style="margin-bottom: 20px;">
+            <label for="editDescription">Mission / Description</label>
+            <textarea id="editDescription" placeholder="Brief description of your organization's mission and services" rows="3" style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 6px; font-size: 0.95em; font-family: 'Maven Pro', sans-serif;"></textarea>
+            <p style="color: #64748b; font-size: 0.85em; margin-top: 5px; line-height: 1.5;">
+              <strong>A good description includes:</strong> Your mission and who you serve • Key programs and services offered • What makes your organization unique • Impact or outcomes you achieve
+            </p>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+            <div>
+              <label for="editPhone">Phone Number</label>
+              <input type="tel" id="editPhone" placeholder="+1-402-555-0100" style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 6px; font-size: 0.95em;">
+            </div>
+            <div>
+              <label for="editEmail">Email Address</label>
+              <input type="email" id="editEmail" placeholder="info@yourorg.org" style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 6px; font-size: 0.95em;">
+            </div>
+          </div>
+
+          <h4 style="color: #1e3a8a; margin-bottom: 12px; margin-top: 20px;">Physical Address</h4>
+          <div style="display: grid; grid-template-columns: 1fr; gap: 15px; margin-bottom: 20px;">
+            <input type="text" id="editStreet" placeholder="Street Address" style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 6px; font-size: 0.95em;">
+            <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 15px;">
+              <input type="text" id="editCity" placeholder="City" style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 6px; font-size: 0.95em;">
+              <input type="text" id="editState" placeholder="State" style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 6px; font-size: 0.95em;">
+              <input type="text" id="editZip" placeholder="Zip" style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 6px; font-size: 0.95em;">
+            </div>
+          </div>
+
+          <h4 style="color: #1e3a8a; margin-bottom: 12px; margin-top: 20px;">Optional: Enhance Your Schema</h4>
+          <p style="color: #64748b; font-size: 0.9em; margin-bottom: 15px;">These fields help your organization stand out in AI search results</p>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+            <div>
+              <label for="editLogo">Logo Image URL</label>
+              <input type="url" id="editLogo" placeholder="https://yoursite.org/logo.png" style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 6px; font-size: 0.95em;">
+              <p style="color: #64748b; font-size: 0.85em; margin-top: 5px;">Direct link to your logo image file</p>
+            </div>
+            <div>
+              <label for="editDonationUrl">Donation Page URL</label>
+              <input type="url" id="editDonationUrl" placeholder="https://yoursite.org/donate" style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 6px; font-size: 0.95em;">
+              <p style="color: #64748b; font-size: 0.85em; margin-top: 5px;">Link where people can donate</p>
+            </div>
+          </div>
+
+          <h4 style="color: #1e3a8a; margin-bottom: 12px; margin-top: 20px;">Social Media (Optional)</h4>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
+            <input type="url" id="editFacebook" placeholder="https://facebook.com/yourorg" style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 6px; font-size: 0.95em;">
+            <input type="url" id="editInstagram" placeholder="https://instagram.com/yourorg" style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 6px; font-size: 0.95em;">
+            <input type="url" id="editTwitter" placeholder="https://twitter.com/yourorg" style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 6px; font-size: 0.95em;">
+            <input type="url" id="editLinkedIn" placeholder="https://linkedin.com/company/yourorg" style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 6px; font-size: 0.95em;">
+          </div>
+
+          <div style="margin-bottom: 25px;">
+            <label for="editHours">Hours of Operation (Optional)</label>
+            <input type="text" id="editHours" placeholder="Monday-Friday 9am-5pm, Saturday 10am-2pm" style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 6px; font-size: 0.95em;">
+            <p style="color: #64748b; font-size: 0.85em; margin-top: 5px;">Enter in plain English - for example: "Monday-Friday 9am-5pm" or "Weekdays 8:30am-4:30pm"</p>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+            <button onclick="previewChanges()" style="width: 100%; padding: 16px; background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; border: none; border-radius: 8px; font-size: 1.05em; font-weight: 600; cursor: pointer; font-family: 'sofia-pro-soft', sans-serif;">
+              👁️ Preview Changes
+            </button>
+            <button onclick="finalizeSchema()" style="width: 100%; padding: 16px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; border: none; border-radius: 8px; font-size: 1.05em; font-weight: 600; cursor: pointer; font-family: 'sofia-pro-soft', sans-serif;">
+              ✓ Finalize Schema
+            </button>
+          </div>
+
+          <div id="previewSuccess" style="display: none; margin-top: 15px; padding: 12px; background: #dbeafe; border: 2px solid #3b82f6; border-radius: 8px; color: #1e40af; text-align: center;">
+            <strong>✓ Preview Updated!</strong> Check the preview above. When you're satisfied, click "Finalize Schema" to download.
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2: Download Section (Hidden until finalized) -->
+      <div id="downloadSection" class="card" style="display: none;">
+        <h2>✓ Your Schema is Ready!</h2>
+        <p style="color: #64748b; margin-bottom: 25px; line-height: 1.6;">
+          Your complete schema code is below. Copy it or download it, then add it to your website.
+        </p>
+
+        <div style="background: #f8fafc; padding: 25px; border-radius: 8px; border: 2px solid #3b82f6; margin-bottom: 25px;">
+          <h3 style="color: #1e3a8a; margin-bottom: 15px;">Your Complete Schema Code:</h3>
+          <div style="position: relative;">
+            <button class="copy-btn" onclick="copySchema()" style="position: absolute; top: 10px; right: 10px; z-index: 10;">Copy Code</button>
+            <pre id="schemaCodeFinal" style="max-height: 400px; overflow-y: auto; margin: 0; padding-right: 120px; background: #1e293b; color: #e2e8f0; padding: 20px; border-radius: 6px; font-size: 0.85em;"></pre>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 15px; margin-bottom: 30px; flex-wrap: wrap;">
+          <button onclick="copySchema()" style="flex: 1; min-width: 200px; padding: 16px; background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; border: none; border-radius: 8px; font-size: 1.05em; font-weight: 600; cursor: pointer; font-family: 'sofia-pro-soft', sans-serif;">
+            📋 Copy Code
+          </button>
+          <button onclick="downloadJSON()" style="flex: 1; min-width: 200px; padding: 16px; background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; border: none; border-radius: 8px; font-size: 1.05em; font-weight: 600; cursor: pointer; font-family: 'sofia-pro-soft', sans-serif;">
+            📥 Download JSON
+          </button>
+          <button onclick="downloadTXT()" style="flex: 1; min-width: 200px; padding: 16px; background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; border: none; border-radius: 8px; font-size: 1.05em; font-weight: 600; cursor: pointer; font-family: 'sofia-pro-soft', sans-serif;">
+            📄 Download TXT
+          </button>
+        </div>
+
+        <details>
+          <summary style="background: #dcfce7; color: #065f46; border: 2px solid #10b981; padding: 16px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 1.05em;">
+            🚀 How to Add This Schema to Your Website
+          </summary>
+          <div class="details-content" style="background: #f0fdf4;">
+          
+          <div style="margin-bottom: 20px;">
+            <h5 style="color: #78350f; margin-bottom: 10px; font-size: 1.05em;">For Most Websites (HTML/CMS):</h5>
+            <ol style="color: #78350f; line-height: 1.8; margin-left: 20px;">
+              <li><strong>Copy the code</strong> - Click "View Schema Code" above, then click "Copy Code"</li>
+              <li><strong>Find your website's &lt;head&gt; section</strong> - This is in your HTML or theme editor</li>
+              <li><strong>Paste the code</strong> - Add it anywhere between <code style="background: rgba(255,255,255,0.5);">&lt;head&gt;</code> and <code style="background: rgba(255,255,255,0.5);">&lt;/head&gt;</code> tags</li>
+              <li><strong>Save and publish</strong> - Your changes go live</li>
+              <li><strong>Test it</strong> - Use <a href="https://validator.schema.org/" target="_blank" style="color: #2563eb; text-decoration: none; font-weight: 600;">Schema Validator</a> to verify</li>
+            </ol>
+          </div>
+
+          <details style="margin-bottom: 10px; border: 1px solid rgba(245, 158, 11, 0.3); background: rgba(255, 255, 255, 0.5);">
+            <summary style="cursor: pointer; color: #92400e; font-weight: 600; padding: 12px; background: transparent;">Platform-Specific Instructions</summary>
+            <div style="padding: 15px; color: #78350f; line-height: 1.7;">
+              
+              <details style="margin-bottom: 10px;">
+                <summary style="cursor: pointer; font-weight: 600; padding: 8px 0;">WordPress</summary>
+                <div style="padding: 10px 0;">
+                  <strong>Option 1 - Using a Plugin (Easiest):</strong><br>
+                  • Install "Insert Headers and Footers" or "WPCode" plugin<br>
+                  • Go to plugin settings<br>
+                  • Paste code in "Header Scripts" section<br>
+                  • Save changes<br><br>
+                  <strong>Option 2 - Theme Editor:</strong><br>
+                  • Go to Appearance → Theme File Editor<br>
+                  • Click on <code style="background: rgba(255,255,255,0.5);">header.php</code><br>
+                  • Paste code before the closing <code style="background: rgba(255,255,255,0.5);">&lt;/head&gt;</code> tag<br>
+                  • Update file
+                </div>
+              </details>
+
+              <details style="margin-bottom: 10px;">
+                <summary style="cursor: pointer; font-weight: 600; padding: 8px 0;">Squarespace</summary>
+                <div style="padding: 10px 0;">
+                  • Go to Settings → Advanced → Code Injection<br>
+                  • Paste code in "Header" section<br>
+                  • Click Save<br>
+                  • Note: Requires Business plan or higher
+                </div>
+              </details>
+
+              <details style="margin-bottom: 10px;">
+                <summary style="cursor: pointer; font-weight: 600; padding: 8px 0;">Wix</summary>
+                <div style="padding: 10px 0;">
+                  • Go to Settings → Custom Code<br>
+                  • Click "+ Add Custom Code"<br>
+                  • Name it "Schema Markup"<br>
+                  • Paste code<br>
+                  • Choose "Head" for placement<br>
+                  • Apply to all pages<br>
+                  • Click Apply
+                </div>
+              </details>
+
+              <details style="margin-bottom: 10px;">
+                <summary style="cursor: pointer; font-weight: 600; padding: 8px 0;">Shopify</summary>
+                <div style="padding: 10px 0;">
+                  • Go to Online Store → Themes<br>
+                  • Click "..." → Edit code<br>
+                  • Open <code style="background: rgba(255,255,255,0.5);">theme.liquid</code><br>
+                  • Paste code before <code style="background: rgba(255,255,255,0.5);">&lt;/head&gt;</code><br>
+                  • Save
+                </div>
+              </details>
+
+              <details>
+                <summary style="cursor: pointer; font-weight: 600; padding: 8px 0;">Webflow</summary>
+                <div style="padding: 10px 0;">
+                  • Go to Project Settings (gear icon)<br>
+                  • Click Custom Code<br>
+                  • Paste code in "Head Code" section<br>
+                  • Save and publish
+                </div>
+              </details>
+            </div>
+          </details>
+
+          <div style="padding: 15px; background: rgba(234, 179, 8, 0.15); border-radius: 6px; margin-top: 15px;">
+            <strong style="color: #92400e;">⚠️ Important:</strong>
+            <p style="color: #78350f; margin-top: 8px; line-height: 1.6; margin-bottom: 0;">
+              Add schema to your <strong>homepage</strong> first. If you serve different programs or locations, you may want customized schema on those pages too.
+            </p>
+          </div>
+
+          <p style="color: #78350f; font-size: 0.9em; margin-top: 15px; font-style: italic; margin-bottom: 0;">
+            Need help implementing? <a href="https://filamentservices.org" target="_blank" style="color: #2563eb; text-decoration: none; font-weight: 600;">Contact Filament</a> for assistance.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p>Schema Markup Generator provided by <a href="https://filamentservices.org" target="_blank" rel="noopener noreferrer">Filament Essential Services</a></p>
+      <p style="margin-top: 8px; font-size: 0.85em;">Helping nonprofits increase visibility, attract donors, and connect with the communities they serve</p>
+    </footer>
+  </div>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+  
+  <script>
+    let currentState = {
+      url: '',
+      schemaType: 'auto',
+      schema: ''
+    };
+
+    // Toggle collapsible sections
+    function toggleSection(id) {
+      const content = document.getElementById(id);
+      const header = content.previousElementSibling;
+      content.classList.toggle('active');
+      header.classList.toggle('active');
+    }
+
+    // Progress animation
+    function simulateProgress() {
+      const progressBar = document.getElementById('progressBar');
+      const steps = ['step1', 'step2', 'step3', 'step4', 'step5'];
+      
+      // Reset
+      if (progressBar) progressBar.style.width = '0%';
+      steps.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.remove('active', 'complete');
+      });
+
+      // Initial scan progress (5 steps)
+      setTimeout(() => {
+        if (progressBar) progressBar.style.width = '20%';
+        document.getElementById('step1')?.classList.add('active');
+      }, 500);
+      setTimeout(() => {
+        document.getElementById('step1')?.classList.replace('active', 'complete');
+        document.getElementById('step2')?.classList.add('active');
+        if (progressBar) progressBar.style.width = '40%';
+      }, 3000);
+      setTimeout(() => {
+        document.getElementById('step2')?.classList.replace('active', 'complete');
+        document.getElementById('step3')?.classList.add('active');
+        if (progressBar) progressBar.style.width = '60%';
+      }, 6000);
+      setTimeout(() => {
+        document.getElementById('step3')?.classList.replace('active', 'complete');
+        document.getElementById('step4')?.classList.add('active');
+        if (progressBar) progressBar.style.width = '80%';
+      }, 10000);
+      setTimeout(() => {
+        document.getElementById('step4')?.classList.replace('active', 'complete');
+        document.getElementById('step5')?.classList.add('active');
+        if (progressBar) progressBar.style.width = '95%';
+      }, 15000);
+    }
+
+    // Generate schema
+    document.getElementById('generateBtn').addEventListener('click', async () => {
+      const url = document.getElementById('urlInput').value.trim();
+      if (!url) {
+        alert('Please enter a URL');
+        return;
+      }
+
+      let processedUrl = url;
+      if (!processedUrl.match(/^https?:\/\//i)) {
+        processedUrl = 'https://' + processedUrl;
+      }
+
+      currentState.url = processedUrl;
+
+      document.getElementById('generateBtn').disabled = true;
+      document.getElementById('loading').style.display = 'block';
+      document.getElementById('results').style.display = 'none';
+      document.getElementById('error').style.display = 'none';
+      simulateProgress();
+
+      // Function to attempt generation
+      const attemptGeneration = async (isRetry = false) => {
+        if (isRetry) {
+          // Update loading message for retry
+          document.querySelector('#loading h3').textContent = 'Retrying... This may take a moment';
+          simulateProgress(); // Restart progress bar
+        }
+
+        try {
+          const response = await fetch('/api/generate', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ url: processedUrl, schemaType: currentState.schemaType })
+          });
+
+          const data = await response.json();
+          if (!response.ok) throw new Error(data.error);
+
+          currentState.schema = data.schema;
+          displayResults();
+          
+          // Reset loading message
+          document.querySelector('#loading h3').textContent = 'Analyzing Your Organization\'s Website';
+
+        } catch (error) {
+          // If timeout and this is first attempt, retry once
+          if (!isRetry && (error.message.includes('timeout') || error.message.includes('TIMEOUT') || error.message.includes('timed out'))) {
+            console.log('Timeout detected, retrying...');
+            return await attemptGeneration(true);
+          }
+          
+          // Format error message for display
+          let errorMsg = error.message;
+          if (errorMsg.includes('timeout') || errorMsg.includes('TIMEOUT')) {
+            errorMsg = 'The request timed out. This sometimes happens with complex websites. Please try again - it often works on the second attempt.';
+          }
+          
+          // Otherwise show error
+          document.getElementById('error').textContent = errorMsg;
+          document.getElementById('error').style.display = 'block';
+          document.querySelector('#loading h3').textContent = 'Analyzing Your Organization\'s Website';
+        } finally {
+          document.getElementById('generateBtn').disabled = false;
+          document.getElementById('loading').style.display = 'none';
+        }
+      };
+
+      await attemptGeneration(false);
+    });
+
+    // Display results
+    function displayResults() {
+      document.getElementById('results').style.display = 'block';
+      
+      const preview = parseSchema(currentState.schema);
+      document.getElementById('preview').innerHTML = renderPreview(preview);
+      
+      // Show review section, hide download section
+      document.getElementById('reviewSection').style.display = 'block';
+      document.getElementById('downloadSection').style.display = 'none';
+      
+      // Populate edit form
+      populateEditForm();
+      
+      // Scroll to TOP of results
+      document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // Preview changes from form without finalizing
+    function previewChanges() {
+      try {
+        // Parse current schema
+        let json = currentState.schema.trim();
+        const start = json.indexOf('{');
+        if (start > 0) json = json.substring(start);
+        
+        let count = 0, end = -1;
+        for (let i = 0; i < json.length; i++) {
+          if (json[i] === '{') count++;
+          if (json[i] === '}' && --count === 0) {
+            end = i + 1;
+            break;
+          }
+        }
+        if (end > 0) json = json.substring(0, end);
+
+        const schema = JSON.parse(json);
+        const actual = schema['@graph'] ? schema['@graph'][0] : schema;
+
+        // Update basic fields
+        const orgName = document.getElementById('editOrgName').value.trim();
+        const url = document.getElementById('editUrl').value.trim();
+        const description = document.getElementById('editDescription').value.trim();
+        const phone = document.getElementById('editPhone').value.trim();
+        const email = document.getElementById('editEmail').value.trim();
+        
+        if (orgName) actual.name = orgName;
+        if (url) actual.url = url;
+        if (description) actual.description = description;
+        if (phone) actual.telephone = phone;
+        if (email) actual.email = email;
+
+        // Update address
+        const street = document.getElementById('editStreet').value.trim();
+        const city = document.getElementById('editCity').value.trim();
+        const state = document.getElementById('editState').value.trim();
+        const zip = document.getElementById('editZip').value.trim();
+
+        if (street || city || state || zip) {
+          const address = {
+            "@type": "PostalAddress"
+          };
+          if (street) address.streetAddress = street;
+          if (city) address.addressLocality = city;
+          if (state) address.addressRegion = state;
+          if (zip) address.postalCode = zip;
+          
+          // Update both locations where address might be
+          if (actual.location && typeof actual.location === 'object') {
+            actual.location.address = address;
+          } else {
+            actual.address = address;
+          }
+        }
+
+        // Update social media
+        const facebook = document.getElementById('editFacebook').value.trim();
+        const instagram = document.getElementById('editInstagram').value.trim();
+        const twitter = document.getElementById('editTwitter').value.trim();
+        const linkedin = document.getElementById('editLinkedIn').value.trim();
+        
+        const sameAs = [];
+        if (facebook) sameAs.push(facebook);
+        if (instagram) sameAs.push(instagram);
+        if (twitter) sameAs.push(twitter);
+        if (linkedin) sameAs.push(linkedin);
+        
+        if (sameAs.length > 0) {
+          actual.sameAs = sameAs;
+        }
+
+        // Update hours
+        const hours = document.getElementById('editHours').value.trim();
+        if (hours) {
+          actual.openingHours = hours;
+        }
+
+        // Update logo
+        const logo = document.getElementById('editLogo').value.trim();
+        if (logo) {
+          actual.logo = logo;
+        }
+
+        // Update donation URL
+        const donationUrl = document.getElementById('editDonationUrl').value.trim();
+        if (donationUrl) {
+          actual.donationUrl = donationUrl;
+        }
+
+        // Update the schema in state
+        if (schema['@graph']) {
+          schema['@graph'][0] = actual;
+        }
+        currentState.schema = JSON.stringify(schema, null, 2);
+
+        // Update preview with changes
+        const preview = parseSchema(currentState.schema);
+        document.getElementById('preview').innerHTML = renderPreview(preview);
+
+        // Show success message
+        const successMsg = document.getElementById('previewSuccess');
+        successMsg.style.display = 'block';
+        
+        // Auto-hide after 4 seconds
+        setTimeout(() => {
+          successMsg.style.display = 'none';
+        }, 4000);
+
+        // Scroll to preview to show updated result
+        document.getElementById('preview').scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      } catch (e) {
+        alert('Error previewing changes: ' + e.message);
+        console.error('Preview error:', e);
+      }
+    }
+
+    // Finalize schema - apply edits and show download section
+    function finalizeSchema() {
+      try {
+        // Parse current schema
+        let json = currentState.schema.trim();
+        const start = json.indexOf('{');
+        if (start > 0) json = json.substring(start);
+        
+        let count = 0, end = -1;
+        for (let i = 0; i < json.length; i++) {
+          if (json[i] === '{') count++;
+          if (json[i] === '}' && --count === 0) {
+            end = i + 1;
+            break;
+          }
+        }
+        if (end > 0) json = json.substring(0, end);
+
+        const schema = JSON.parse(json);
+        const actual = schema['@graph'] ? schema['@graph'][0] : schema;
+
+        // Update basic fields
+        const orgName = document.getElementById('editOrgName').value.trim();
+        const url = document.getElementById('editUrl').value.trim();
+        const description = document.getElementById('editDescription').value.trim();
+        const phone = document.getElementById('editPhone').value.trim();
+        const email = document.getElementById('editEmail').value.trim();
+        
+        if (orgName) actual.name = orgName;
+        if (url) actual.url = url;
+        if (description) actual.description = description;
+        if (phone) actual.telephone = phone;
+        if (email) actual.email = email;
+
+        // Update address
+        const street = document.getElementById('editStreet').value.trim();
+        const city = document.getElementById('editCity').value.trim();
+        const state = document.getElementById('editState').value.trim();
+        const zip = document.getElementById('editZip').value.trim();
+
+        if (street || city || state || zip) {
+          const address = {
+            "@type": "PostalAddress"
+          };
+          if (street) address.streetAddress = street;
+          if (city) address.addressLocality = city;
+          if (state) address.addressRegion = state;
+          if (zip) address.postalCode = zip;
+          
+          // Update both locations where address might be
+          if (actual.location && typeof actual.location === 'object') {
+            actual.location.address = address;
+          } else {
+            actual.address = address;
+          }
+        }
+
+        // Update social media
+        const facebook = document.getElementById('editFacebook').value.trim();
+        const instagram = document.getElementById('editInstagram').value.trim();
+        const twitter = document.getElementById('editTwitter').value.trim();
+        const linkedin = document.getElementById('editLinkedIn').value.trim();
+        
+        const sameAs = [];
+        if (facebook) sameAs.push(facebook);
+        if (instagram) sameAs.push(instagram);
+        if (twitter) sameAs.push(twitter);
+        if (linkedin) sameAs.push(linkedin);
+        
+        if (sameAs.length > 0) {
+          actual.sameAs = sameAs;
+        }
+
+        // Update hours
+        const hours = document.getElementById('editHours').value.trim();
+        if (hours) {
+          actual.openingHours = hours;
+        }
+
+        // Update logo
+        const logo = document.getElementById('editLogo').value.trim();
+        if (logo) {
+          actual.logo = logo;
+        }
+
+        // Update donation URL
+        const donationUrl = document.getElementById('editDonationUrl').value.trim();
+        if (donationUrl) {
+          actual.donationUrl = donationUrl;
+        }
+
+        // Update the schema in state
+        if (schema['@graph']) {
+          schema['@graph'][0] = actual;
+        }
+        currentState.schema = JSON.stringify(schema, null, 2);
+
+        // Update preview with any changes
+        const preview = parseSchema(currentState.schema);
+        document.getElementById('preview').innerHTML = renderPreview(preview);
+        
+        // Update code displays
+        document.getElementById('schemaCodeFinal').textContent = currentState.schema;
+
+        // Hide review section, show download section
+        document.getElementById('reviewSection').style.display = 'none';
+        document.getElementById('downloadSection').style.display = 'block';
+
+        // Scroll to download section
+        document.getElementById('downloadSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      } catch (e) {
+        alert('Error finalizing schema: ' + e.message);
+        console.error('Finalize error:', e);
+      }
+    }
+
+    // Populate edit form with current schema data
+    function populateEditForm() {
+      try {
+        let json = currentState.schema.trim();
+        const start = json.indexOf('{');
+        if (start > 0) json = json.substring(start);
+        
+        let count = 0, end = -1;
+        for (let i = 0; i < json.length; i++) {
+          if (json[i] === '{') count++;
+          if (json[i] === '}' && --count === 0) {
+            end = i + 1;
+            break;
+          }
+        }
+        if (end > 0) json = json.substring(0, end);
+
+        const schema = JSON.parse(json);
+        const actual = schema['@graph'] ? schema['@graph'][0] : schema;
+
+        // Populate basic fields
+        document.getElementById('editOrgName').value = actual.name || '';
+        document.getElementById('editUrl').value = actual.url || '';
+        document.getElementById('editDescription').value = actual.description || '';
+        
+        // Handle email - string, array, or object
+        if (actual.email) {
+          if (typeof actual.email === 'string') {
+            document.getElementById('editEmail').value = actual.email;
+          } else if (Array.isArray(actual.email)) {
+            document.getElementById('editEmail').value = actual.email[0];
+          } else if (typeof actual.email === 'object') {
+            document.getElementById('editEmail').value = actual.email.email || actual.email.value || '';
+          }
+        }
+        
+        // Handle telephone
+        if (actual.telephone) {
+          if (typeof actual.telephone === 'string') {
+            document.getElementById('editPhone').value = actual.telephone;
+          } else if (Array.isArray(actual.telephone)) {
+            document.getElementById('editPhone').value = actual.telephone[0];
+          } else if (typeof actual.telephone === 'object') {
+            document.getElementById('editPhone').value = actual.telephone.telephone || actual.telephone.value || '';
+          }
+        }
+
+        // Handle address - check both location.address and direct address
+        let addr = null;
+        if (actual.location && actual.location.address) {
+          addr = actual.location.address;
+        } else if (actual.address) {
+          addr = actual.address;
+        }
+
+        if (addr && typeof addr === 'object') {
+          document.getElementById('editStreet').value = addr.streetAddress || '';
+          document.getElementById('editCity').value = addr.addressLocality || '';
+          document.getElementById('editState').value = addr.addressRegion || '';
+          document.getElementById('editZip').value = addr.postalCode || '';
+        }
+
+        // Handle social media
+        if (actual.sameAs && Array.isArray(actual.sameAs)) {
+          actual.sameAs.forEach(url => {
+            if (url.includes('facebook')) document.getElementById('editFacebook').value = url;
+            if (url.includes('instagram')) document.getElementById('editInstagram').value = url;
+            if (url.includes('twitter') || url.includes('x.com')) document.getElementById('editTwitter').value = url;
+            if (url.includes('linkedin')) document.getElementById('editLinkedIn').value = url;
+          });
+        }
+
+        // Handle hours
+        if (actual.openingHours) {
+          document.getElementById('editHours').value = actual.openingHours;
+        }
+
+        // Handle logo
+        if (actual.logo) {
+          if (typeof actual.logo === 'string') {
+            document.getElementById('editLogo').value = actual.logo;
+          } else if (actual.logo.url) {
+            document.getElementById('editLogo').value = actual.logo.url;
+          }
+        }
+
+        // Handle donation URL
+        if (actual.donationUrl) {
+          document.getElementById('editDonationUrl').value = actual.donationUrl;
+        }
+
+      } catch (e) {
+        console.error('Error populating form:', e);
+      }
+    }
+
+    // Update schema with form data
+    // Parse schema
+    function parseSchema(code) {
+      try {
+        let json = code.trim();
+        const start = json.indexOf('{');
+        if (start > 0) json = json.substring(start);
+        
+        let count = 0, end = -1;
+        for (let i = 0; i < json.length; i++) {
+          if (json[i] === '{') count++;
+          if (json[i] === '}' && --count === 0) {
+            end = i + 1;
+            break;
+          }
+        }
+        if (end > 0) json = json.substring(0, end);
+
+        const schema = JSON.parse(json);
+        const actual = schema['@graph'] ? schema['@graph'][0] : schema;
+
+        // Extract email - handle string, array of strings, array of objects, or object
+        let email = '';
+        if (actual.email) {
+          if (typeof actual.email === 'string') {
+            email = actual.email;
+          } else if (Array.isArray(actual.email)) {
+            email = actual.email.map(e => typeof e === 'string' ? e : e.email || e.value || '').filter(Boolean).join(', ');
+          } else if (typeof actual.email === 'object') {
+            email = actual.email.email || actual.email.value || '';
+          }
+        }
+
+        // Extract phone - handle string, array of strings, array of objects, or object
+        let telephone = '';
+        if (actual.telephone) {
+          if (typeof actual.telephone === 'string') {
+            telephone = actual.telephone;
+          } else if (Array.isArray(actual.telephone)) {
+            telephone = actual.telephone.map(t => typeof t === 'string' ? t : t.telephone || t.value || '').filter(Boolean).join(', ');
+          } else if (typeof actual.telephone === 'object') {
+            telephone = actual.telephone.telephone || actual.telephone.value || '';
+          }
+        }
+
+        // Extract organization name for validation
+        const orgName = actual.name || actual.headline || 'Organization';
+
+        // Extract location - handle multiple formats, be smart about organization name
+        let location = '';
+        if (actual.location) {
+          if (typeof actual.location === 'string') {
+            // Don't use if it's the same as organization name
+            if (actual.location !== orgName) {
+              location = actual.location;
+            }
+          } else if (actual.location.name) {
+            // Don't use location.name if it matches the org name
+            if (actual.location.name !== orgName) {
+              location = actual.location.name;
+            }
+          }
+          
+          // Try to build from address object if we don't have a good location yet
+          if (!location && actual.location.address) {
+            const addr = actual.location.address;
+            if (typeof addr === 'string') {
+              location = addr;
+            } else {
+              // Build address from PostalAddress object
+              const parts = [
+                addr.streetAddress,
+                addr.addressLocality,
+                addr.addressRegion,
+                addr.postalCode
+              ].filter(Boolean);
+              if (parts.length > 0) {
+                location = parts.join(', ');
+              }
+            }
+          }
+        }
+        
+        // Also check for direct address property if location failed
+        if (!location && actual.address) {
+          const addr = actual.address;
+          if (typeof addr === 'string') {
+            // Don't use if it's the same as organization name
+            if (addr !== orgName) {
+              location = addr;
+            }
+          } else {
+            const parts = [
+              addr.streetAddress,
+              addr.addressLocality,
+              addr.addressRegion,
+              addr.postalCode
+            ].filter(Boolean);
+            if (parts.length > 0) {
+              location = parts.join(', ');
+            }
+          }
+        }
+
+        // Validate we got useful data
+        const result = {
+          type: actual['@type'] || 'Organization',
+          title: orgName,
+          description: actual.description || 'No description available',
+          telephone: telephone,
+          email: email,
+          location: location,
+          url: actual.url,
+          logo: actual.logo ? (typeof actual.logo === 'string' ? actual.logo : actual.logo.url) : '',
+          donationUrl: actual.donationUrl || '',
+          openingHours: actual.openingHours || '',
+          sameAs: actual.sameAs || []
+        };
+
+        // Log for debugging
+        console.log('Parsed schema preview:', result);
+
+        return result;
+      } catch (e) {
+        console.error('Parse error:', e);
+        console.error('Failed to parse schema code:', code.substring(0, 500));
+        return { 
+          type: 'Organization', 
+          title: 'Schema Generated', 
+          description: 'Preview unavailable - but schema code is valid and can be downloaded below',
+          telephone: '',
+          email: '',
+          location: '',
+          url: '',
+          logo: '',
+          donationUrl: '',
+          openingHours: '',
+          sameAs: []
+        };
+      }
+    }
+
+    // Render preview
+    function renderPreview(p) {
+      let meta = '';
+      if (p.telephone) meta += `<span><strong>Phone:</strong> ${p.telephone}</span>`;
+      if (p.email) meta += `<span><strong>Email:</strong> ${p.email}</span>`;
+      if (p.location) meta += `<span><strong>Location:</strong> ${p.location}</span>`;
+      if (p.url) meta += `<span><strong>Website:</strong> ${p.url}</span>`;
+      if (p.openingHours) meta += `<span><strong>Hours:</strong> ${p.openingHours}</span>`;
+      if (p.donationUrl) meta += `<span><strong>Donate:</strong> <a href="${p.donationUrl}" target="_blank" style="color: #2563eb; text-decoration: none;">${p.donationUrl}</a></span>`;
+      
+      // Add social media links if present
+      if (p.sameAs && p.sameAs.length > 0) {
+        const socialLinks = p.sameAs.map(url => {
+          let platform = 'Link';
+          if (url.includes('facebook')) platform = 'Facebook';
+          else if (url.includes('instagram')) platform = 'Instagram';
+          else if (url.includes('twitter') || url.includes('x.com')) platform = 'Twitter';
+          else if (url.includes('linkedin')) platform = 'LinkedIn';
+          return `<a href="${url}" target="_blank" style="color: #2563eb; text-decoration: none;">${platform}</a>`;
+        }).join(' • ');
+        meta += `<span><strong>Social:</strong> ${socialLinks}</span>`;
+      }
+
+      return `
+        ${p.logo ? `<div style="text-align: center; margin-bottom: 15px;"><img src="${p.logo}" alt="Logo" style="max-width: 150px; max-height: 80px; object-fit: contain;"></div>` : ''}
+        <div class="preview-badge">✓ Schema: ${p.type}</div>
+        <div class="preview-title">${p.title}</div>
+        <div class="preview-desc">${p.description}</div>
+        ${meta ? `<div class="preview-meta">${meta}</div>` : ''}
+      `;
+    }
+
+    // Copy to clipboard
+    function copySchema() {
+      navigator.clipboard.writeText(currentState.schema).then(() => alert('Schema copied to clipboard!'));
+    }
+
+    // Download
+    function downloadJSON() {
+      const blob = new Blob([currentState.schema], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'schema.json';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function downloadTXT() {
+      const blob = new Blob([currentState.schema], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'schema.txt';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+  </script>
+</body>
+</html>

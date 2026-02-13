@@ -1,0 +1,2178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Schema Markup Generator | Filament Essential Services</title>
+  
+  <!-- Fonts -->
+  <link rel="stylesheet" href="https://use.typekit.net/lox7nqm.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Maven Pro', Helvetica, Arial, Lucida, sans-serif;
+      background: linear-gradient(135deg, #f5f5f5 0%, #eee 50%, #f5f5f5 100%);
+      background-attachment: fixed;
+      color: #2c3e50;
+      line-height: 1.6;
+      padding: 20px;
+      position: relative;
+    }
+    
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        linear-gradient(90deg, rgba(0, 28, 113, 0.02) 1px, transparent 1px),
+        linear-gradient(rgba(0, 28, 113, 0.02) 1px, transparent 1px);
+      background-size: 50px 50px;
+      pointer-events: none;
+      z-index: -1;
+    }
+    
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    /* Headers */
+    h1, h2, h3, h4, h5, h6 {
+      font-family: "sofia-pro-soft", sans-serif !important;
+    }
+    
+    /* Header */
+    h1 {
+      font-size: 2.5em;
+      font-weight: 700;
+      color: #1e3a8a;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+    
+    .subtitle {
+      font-size: 1.2em;
+      color: #64748b;
+      text-align: center;
+      margin-bottom: 40px;
+      font-weight: 400;
+    }
+    
+    /* Cards */
+    .card {
+      background: linear-gradient(135deg, #ffffff 0%, #e5e5e5 100%);
+      border-radius: 12px;
+      padding: 35px;
+      margin-bottom: 25px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.04);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 1px solid rgba(226, 232, 240, 0.8);
+    }
+    
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12), 0 4px 12px rgba(0,0,0,0.06);
+    }
+    
+    .card h2 {
+      font-size: 1.8em;
+      color: #001c71;
+      margin-bottom: 20px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+    
+    .card h3 {
+      font-size: 1.3em;
+      color: #00bbb4;
+      margin-bottom: 15px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+    
+    .card h4 {
+      font-size: 1.1em;
+      color: #001c71;
+      margin-bottom: 12px;
+      font-weight: 600;
+      letter-spacing: -0.005em;
+    }
+    
+    /* Form Elements */
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #334155;
+      font-size: 0.95em;
+      font-family: "sofia-pro-soft", sans-serif !important;
+    }
+    
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    textarea {
+      font-family: 'Maven Pro', sans-serif;
+    }
+    
+    input[type="url"] {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 1em;
+      margin-bottom: 8px;
+      transition: all 0.3s ease;
+      background: white;
+      color: #1e293b;
+    }
+    
+    input[type="url"]:hover {
+      border-color: #cbd5e1;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+    
+    input[type="url"]:focus {
+      outline: none;
+      border-color: #00bbb4;
+      box-shadow: 0 0 0 4px rgba(0, 28, 113, 0.1), 0 4px 12px rgba(0, 0, 0, 0.1);
+      transform: translateY(-1px);
+    }
+    
+    /* Buttons */
+    .btn {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, #001c71 0%, #001554 100%);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      margin-top: 10px;
+      font-family: "sofia-pro-soft", sans-serif !important;
+      box-shadow: 0 4px 12px rgba(0, 28, 113, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.15);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+    
+    .btn:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+    
+    .btn:hover:not(:disabled) {
+      background: linear-gradient(135deg, #00bbb4 0%, #009a94 100%);
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 8px 20px rgba(0, 28, 113, 0.3);
+    }
+    
+    .btn:active:not(:disabled) {
+      transform: translateY(-1px) scale(1.01);
+      box-shadow: 0 4px 12px rgba(0, 28, 113, 0.3);
+    }
+    
+    .btn:disabled {
+      background: #94a3b8;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+    
+    /* Collapsible Sections */
+    .collapsible-section {
+      margin-bottom: 25px;
+    }
+    
+    .collapsible-header {
+      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+      padding: 18px 22px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.3s ease;
+      border: 2px solid #e2e8f0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    
+    .collapsible-header:hover {
+      background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+      border-color: #cbd5e1;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    
+    .collapsible-header:active {
+      transform: translateY(0);
+    }
+    
+    .collapsible-header h3 {
+      margin: 0;
+      color: #001c71;
+      font-size: 1.2em;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+    
+    .arrow {
+      font-size: 1.2em;
+      transition: transform 0.3s;
+      color: #64748b;
+    }
+    
+    .collapsible-header.active .arrow {
+      transform: rotate(180deg);
+    }
+    
+    .collapsible-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+    
+    .collapsible-content.active {
+      max-height: 2000px;
+      transition: max-height 0.5s ease-in;
+    }
+    
+    .collapsible-inner {
+      padding: 20px;
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-top: none;
+      border-radius: 0 0 8px 8px;
+    }
+    
+    .collapsible-inner ul {
+      margin-left: 20px;
+      color: #64748b;
+    }
+    
+    .collapsible-inner li {
+      margin-bottom: 8px;
+    }
+    
+    /* Loading State */
+    .loading {
+      text-align: center;
+      padding: 50px;
+      background: linear-gradient(135deg, #ffffff 0%, #eee 100%);
+      border: 3px solid #00bbb4;
+      border-radius: 16px;
+      margin-top: 20px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(0, 0, 0, 0.05);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .loading::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0, 28, 113, 0.05), transparent);
+      animation: shimmer 2s infinite;
+    }
+    
+    @keyframes shimmer {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+    
+    .loading h3 {
+      color: #001c71;
+      margin-bottom: 10px;
+      font-size: 1.4em;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    
+    .loading-icon { 
+      font-size: 2.5em; 
+      margin-bottom: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    #loadingFavicon {
+      animation: pulse-glow 2s ease-in-out infinite;
+      border-radius: 50%;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(1.1); }
+    }
+    
+    @keyframes pulse-glow {
+      0%, 100% { 
+        opacity: 1; 
+        transform: scale(1);
+        filter: drop-shadow(0 0 8px rgba(0, 28, 113, 0.4));
+      }
+      50% { 
+        opacity: 0.9; 
+        transform: scale(1.15);
+        filter: drop-shadow(0 0 20px rgba(0, 28, 113, 0.6)) drop-shadow(0 0 30px rgba(0, 28, 113, 0.3));
+      }
+    }
+    
+    @keyframes highlightUpdate {
+      0% { box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+      50% { box-shadow: 0 0 20px rgba(0, 28, 113, 0.3); border-color: #00bbb4; }
+      100% { box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+    }
+    
+    .preview-card.updated {
+      animation: highlightUpdate 0.8s ease-in-out;
+    }
+    
+    .progress-container {
+      width: 100%;
+      max-width: 400px;
+      height: 10px;
+      background: #e2e8f0;
+      border-radius: 10px;
+      margin: 20px auto;
+      overflow: hidden;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #001c71, #00bbb4, #001c71);
+      background-size: 200% 100%;
+      border-radius: 10px;
+      transition: width 0.5s ease;
+      animation: shimmerProgress 2s infinite;
+      box-shadow: 0 2px 8px rgba(0, 28, 113, 0.3);
+    }
+    
+    @keyframes shimmerProgress {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+    
+    .loading-steps {
+      margin-top: 15px;
+      color: #64748b;
+      font-size: 0.9em;
+    }
+    
+    .loading-step {
+      padding: 8px 0;
+      opacity: 0.5;
+      transition: opacity 0.3s;
+    }
+    
+    .loading-step.active {
+      opacity: 1;
+      color: #00bbb4;
+      font-weight: 600;
+    }
+    
+    .loading-step.complete {
+      opacity: 0.7;
+      color: #334155;
+    }
+    
+    .loading-step.complete::before {
+      content: "✓ ";
+      color: #10b981;
+      font-weight: 700;
+    }
+    
+    /* Error State */
+    .error {
+      background: #fee2e2;
+      border: 2px solid #ef4444;
+      border-radius: 8px;
+      padding: 16px;
+      margin-top: 20px;
+      color: #991b1b;
+      font-weight: 500;
+    }
+    
+    /* Preview Card */
+    .preview-card {
+      background: #ffffff;
+      border: 3px solid #00bbb4;
+      border-radius: 16px;
+      padding: 35px;
+      margin-bottom: 25px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .preview-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(238, 238, 238, 0.3) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    
+    .preview-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12), 0 6px 16px rgba(0, 0, 0, 0.08);
+    }
+    
+    .preview-badge {
+      display: inline-block;
+      background: #1e40af;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 0.9em;
+      font-weight: 700;
+      margin-bottom: 15px;
+      box-shadow: 0 2px 4px rgba(30, 64, 175, 0.3);
+    }
+    
+    .preview-title {
+      font-size: 1.8em;
+      font-weight: 700;
+      color: #000000;
+      margin-bottom: 12px;
+    }
+    
+    .preview-desc {
+      color: #000000;
+      line-height: 1.7;
+      margin-bottom: 18px;
+      font-size: 1.05em;
+    }
+    
+    .preview-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding-top: 18px;
+      border-top: 2px solid #00bbb4;
+    }
+    
+    .preview-meta span {
+      color: #000000;
+      font-size: 0.95em;
+      font-weight: 500;
+    }
+    
+    .preview-meta strong {
+      color: #0c4a6e;
+      font-weight: 700;
+    }
+    
+    /* Details/Accordion */
+    details {
+      margin-bottom: 20px;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    
+    summary {
+      padding: 14px 18px;
+      background: #f8fafc;
+      cursor: pointer;
+      font-weight: 600;
+      color: #1e3a8a;
+      user-select: none;
+      transition: background 0.2s;
+      font-family: "sofia-pro-soft", sans-serif !important;
+    }
+    
+    summary:hover {
+      background: #f1f5f9;
+    }
+    
+    details[open] summary {
+      border-radius: 8px 8px 0 0;
+      margin-bottom: 0;
+      background: #e0f2fe;
+      color: #0c4a6e;
+    }
+    
+    details .details-content {
+      padding: 20px;
+      background: white;
+    }
+    
+    /* Download Buttons */
+    .download-btns {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+    
+    .download-btn {
+      flex: 1;
+      padding: 16px;
+      background: white;
+      border: 2px solid #cbd5e1;
+      border-radius: 8px;
+      color: #334155;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s;
+      font-family: "sofia-pro-soft", sans-serif !important;
+    }
+    
+    .download-btn:hover {
+      background: #f8fafc;
+      border-color: #3b82f6;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(59, 130, 246, 0.15);
+    }
+    
+    .copy-btn {
+      padding: 10px 20px;
+      background: #3b82f6;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: "sofia-pro-soft", sans-serif !important;
+    }
+    
+    .copy-btn:hover {
+      background: #2563eb;
+      transform: translateY(-1px);
+      box-shadow: 0 3px 8px rgba(59, 130, 246, 0.3);
+    }
+    
+    /* Info Boxes */
+    .info-box {
+      padding: 15px 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      line-height: 1.7;
+    }
+    
+    .info-box-blue {
+      background: rgba(59, 130, 246, 0.08);
+      border-left: 4px solid #3b82f6;
+    }
+    
+    .info-box-green {
+      background: rgba(16, 185, 129, 0.08);
+      border-left: 4px solid #10b981;
+    }
+    
+    .info-box-yellow {
+      background: rgba(245, 158, 11, 0.08);
+      border-left: 4px solid #f59e0b;
+    }
+    
+    /* Code Blocks */
+    code {
+      background: #f1f5f9;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9em;
+      color: #1e40af;
+      border: 1px solid #cbd5e1;
+    }
+    
+    pre {
+      background: #1e293b;
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      color: #e2e8f0;
+      font-size: 0.9em;
+      line-height: 1.5;
+    }
+    
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      color: #64748b;
+      font-size: 0.9em;
+      margin-top: 40px;
+      border-top: 1px solid #e2e8f0;
+    }
+    
+    footer a {
+      color: #00bbb4;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    
+    footer a:hover {
+      color: #001c71;
+      text-decoration: underline;
+    }
+    
+    /* Utility Classes */
+    .text-center { text-align: center; }
+    .mb-20 { margin-bottom: 20px; }
+    .mt-30 { margin-top: 30px; }
+    
+    /* Mobile Responsive Styles */
+    @media (max-width: 768px) {
+      body {
+        padding: 10px;
+      }
+      
+      .container {
+        padding: 0 10px;
+      }
+      
+      .card {
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+      
+      h1 {
+        font-size: 1.8em;
+      }
+      
+      .subtitle {
+        font-size: 1em;
+      }
+      
+      .card h2 {
+        font-size: 1.5em;
+      }
+      
+      /* Make form grids single column on mobile */
+      div[style*="grid-template-columns: 1fr 1fr"] {
+        grid-template-columns: 1fr !important;
+      }
+      
+      /* Make button containers stack */
+      div[style*="display: flex"][style*="gap: 15px"] {
+        flex-direction: column !important;
+      }
+      
+      div[style*="display: grid"][style*="grid-template-columns: 1fr 1fr"] {
+        grid-template-columns: 1fr !important;
+      }
+      
+      /* Smaller button text on mobile */
+      .btn {
+        font-size: 1em;
+        padding: 14px;
+      }
+      
+      /* Preview card adjustments */
+      .preview-card {
+        padding: 20px;
+      }
+      
+      .preview-title {
+        font-size: 1.5em;
+      }
+      
+      .preview-meta {
+        flex-direction: column;
+        gap: 12px;
+      }
+      
+      /* Character counter stacks on mobile */
+      #charCount {
+        margin-left: 0 !important;
+        margin-top: 5px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.5em;
+      }
+      
+      .card {
+        padding: 15px;
+      }
+      
+      .btn {
+        font-size: 0.95em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Simplified Header -->
+    <div style="text-align: center; margin-bottom: 35px; padding-top: 20px;">
+      <h1 style="margin-bottom: 12px; font-size: 2.2em;">Schema Markup Generator</h1>
+      <p class="subtitle" style="max-width: 700px; margin: 0 auto; font-size: 1.1em; color: #475569;">
+        Generate structured data code that helps AI search engines like ChatGPT, Claude, and Perplexity accurately understand and recommend your nonprofit's services
+      </p>
+    </div>
+
+
+    <!-- Info Section -->
+    <div class="collapsible-section">
+      <div class="collapsible-header" onclick="toggleSection('infoSection')">
+        <h3>What is Schema Markup & Why Does It Matter?</h3>
+        <span class="arrow">▼</span>
+      </div>
+      <div id="infoSection" class="collapsible-content">
+        <div class="collapsible-inner">
+          <h4 style="color: #00bbb4; margin-bottom: 12px;">What is Schema Markup?</h4>
+          <p style="color: #64748b; line-height: 1.7; margin-bottom: 15px;">
+            Schema markup (also called structured data) is code you add to your website that helps search engines and AI models like ChatGPT, Claude, and Perplexity understand your organization's key information. Think of it as a "nutrition label" for your website—it clearly labels who you are, what services you provide, where you're located, and how people can support your mission.
+          </p>
+          
+          <h4 style="color: #00bbb4; margin-bottom: 12px;">Why is it Important for Nonprofits?</h4>
+          <p style="color: #64748b; line-height: 1.7; margin-bottom: 12px;">
+            When people search for services, volunteer opportunities, or organizations to support, AI models prioritize websites with clear, structured data. Schema markup helps your nonprofit appear in AI-generated answers with:
+          </p>
+          <ul style="color: #64748b; line-height: 1.7; margin-left: 20px; margin-bottom: 15px;">
+            <li style="margin-bottom: 8px;"><strong style="color: #334155;">Contact Information:</strong> Phone, email, and contact forms appear directly in search results</li>
+            <li style="margin-bottom: 8px;"><strong style="color: #334155;">Services & Programs:</strong> Clear descriptions of who you serve and how you help</li>
+            <li style="margin-bottom: 8px;"><strong style="color: #334155;">Location & Hours:</strong> When and where people can visit or reach you</li>
+            <li style="margin-bottom: 8px;"><strong style="color: #334155;">Donation & Volunteer Info:</strong> Easy pathways for supporters to get involved</li>
+            <li style="margin-bottom: 8px;"><strong style="color: #334155;">Mission & Impact:</strong> What makes your organization unique</li>
+            <li style="margin-bottom: 8px;"><strong style="color: #334155;">Team & Leadership:</strong> Names and roles that build credibility</li>
+          </ul>
+          <p style="color: #1e293b; line-height: 1.7; font-weight: 600;">
+            Bottom line: Schema markup makes it easier for people to find your services, donate, volunteer, or get help when they need it.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Generator Form -->
+    <div class="card">
+      <h2>Generate Your Schema</h2>
+      
+      <div class="info-box info-box-blue">
+        <p style="color: #1e293b; margin: 0;">
+          <strong style="color: #1e3a8a;">How it works:</strong> This tool automatically scans your website's main pages and extracts text-based information to create schema markup. 
+          For best results, make sure important details (mission, services, contact info, programs) are clearly displayed as text in prominent areas—not just in images, PDFs, or footer sections. 
+          <strong style="color: #001c71;">The generated schema is a starting point that you can manually refine before implementing.</strong>
+        </p>
+      </div>
+      
+      <form onsubmit="event.preventDefault(); document.getElementById('generateBtn').click();">
+        <label>Website URL</label>
+        <input type="url" id="urlInput" placeholder="yournonprofit.org">
+        <p style="color: #64748b; font-size: 0.85em; margin: -5px 0 20px 0;">We'll automatically detect the best schema type for your organization</p>
+
+        <button type="submit" class="btn" id="generateBtn">Generate Schema Markup</button>
+      </form>
+      <p style="color: #64748b; font-size: 0.85em; margin-top: 10px; text-align: center;">
+        Processing typically takes 30-60 seconds. Complex sites may take longer.<br>
+        <span style="font-size: 0.9em; font-style: italic;">If the preview looks incomplete, try regenerating - AI results can vary slightly.</span>
+      </p>
+
+      <div id="loading" class="loading" style="display:none;">
+        <div class="loading-icon" id="loadingIcon">
+          <img id="loadingFavicon" src="" alt="Site icon" style="width: 48px; height: 48px; border-radius: 8px; object-fit: contain;" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+          <div style="display: none; font-size: 2.5em;">Loading...</div>
+        </div>
+        <h3>Analyzing Your Organization's Website</h3>
+        <div class="progress-container">
+          <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+        </div>
+        <div class="loading-steps">
+          <div class="loading-step" id="step1">Fetching homepage and mission...</div>
+          <div class="loading-step" id="step2">Scanning programs and services...</div>
+          <div class="loading-step" id="step3">Finding contact and location info...</div>
+          <div class="loading-step" id="step4">Extracting team and leadership...</div>
+          <div class="loading-step" id="step5">Generating comprehensive schema...</div>
+        </div>
+      </div>
+
+      <div id="error" class="error" style="display:none;"></div>
+    </div>
+
+    <div id="results" style="display:none;">
+      <!-- Preview Section -->
+      <div class="card">
+        <h2>Your Schema Results</h2>
+        
+        <h2 style="color: #1e3a8a; margin-bottom: 20px; font-size: 1.5em;">
+          Preview: How Your Organization Appears in AI Search Results
+        </h2>
+        
+        <div id="preview" class="preview-card"></div>
+
+        <!-- Finalize button - shown after Preview Changes -->
+        <div id="quickFinalizeBtn" style="display: none; margin-top: 20px; text-align: center;">
+          <button onclick="finalizeSchema()" style="padding: 16px 40px; background: linear-gradient(135deg, #00bbb4 0%, #009a94 100%); color: white; border: none; border-radius: 8px; font-size: 1.1em; font-weight: 600; cursor: pointer; font-family: 'sofia-pro-soft', sans-serif; box-shadow: 0 4px 12px rgba(0, 28, 113, 0.3); transition: all 0.3s ease;">
+            ✓ Finalize Schema
+          </button>
+          <p style="color: #64748b; font-size: 0.9em; margin-top: 10px;">Happy with the preview? Click to generate your final schema code.</p>
+        </div>
+
+        <details style="margin-top: 25px;">
+          <summary style="background: #f8f9fa; color: #001c71; border: 2px solid #00bbb4; padding: 16px; border-radius: 8px; cursor: pointer; font-weight: 600;">
+            About Your Results
+          </summary>
+          <div class="details-content" style="background: #ffffff; border: 1px solid #e2e8f0; border-top: none; padding: 20px; border-radius: 0 0 8px 8px;">
+            <p style="color: #334155; line-height: 1.7; margin-bottom: 12px;">
+              This schema was created by automatically scanning your website's main pages. <strong>AI-generated results can vary slightly between runs</strong> - if the preview looks incomplete or you notice missing information, try regenerating to get a different result.
+            </p>
+            <p style="color: #334155; line-height: 1.7; margin-bottom: 12px;">
+              Automated tools sometimes miss information that's:
+            </p>
+            <ul style="color: #334155; line-height: 1.7; margin-left: 20px; margin-bottom: 12px;">
+              <li><strong>In footer or header areas</strong> (common for phone/address)</li>
+              <li>Only in images or PDFs (not as text)</li>
+              <li>Hidden in expandable menus or tabs</li>
+              <li>Behind forms or login pages</li>
+              <li>On pages we didn't scan (deep subpages)</li>
+            </ul>
+            <p style="color: #334155; line-height: 1.7; margin-bottom: 0; font-size: 0.9em;">
+              <strong>Want a more complete schema next time?</strong> Move critical information (contact details, hours, key services) from footer areas into your main page content where automated tools can more easily find it.
+            </p>
+          </div>
+        </details>
+      </div>
+
+      <!-- STEP 1: Review & Customize Section -->
+      <div id="reviewSection" class="card">
+        <h2>Review & Customize Your Schema</h2>
+        <p style="color: #64748b; margin-bottom: 25px; line-height: 1.6;">
+          We've generated schema based on your website. Review the preview above - if anything is missing or incorrect, add it here:
+        </p>
+
+        <div style="background: #f8fafc; padding: 25px; border-radius: 8px; border: 2px solid #e2e8f0;">
+          
+          <!-- BASIC INFORMATION -->
+          <div style="border-bottom: 2px solid #e2e8f0; border-left: 4px solid #001c71; padding-left: 20px; padding-bottom: 20px; margin-bottom: 25px;">
+            <h3 style="color: #001c71; margin-bottom: 15px; font-size: 1.1em;">Basic Information</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+              <div>
+                <label for="editOrgName">Organization Name</label>
+                <input type="text" id="editOrgName" placeholder="Your Organization Name" style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 6px; font-size: 0.95em;">
+              </div>
+              <div>
+                <label for="editUrl">Website URL</label>
+                <input type="url" id="editUrl" placeholder="yournonprofit.org" style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 6px; font-size: 0.95em;">
+              </div>
+            </div>
+
+            <div>
+              <label for="editDescription">Mission / Description</label>
+              <textarea id="editDescription" placeholder="Brief description of your organization's mission and services" rows="3" style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 6px; font-size: 0.95em; font-family: 'Maven Pro', sans-serif;" oninput="updateCharCount()"></textarea>
+              <div style="display: flex; justify-content: space-between; align-items: start; margin-top: 5px;">
+                <p style="color: #64748b; font-size: 0.85em; margin: 0; line-height: 1.5; flex: 1;">
+                  <strong>A good description includes:</strong> Your mission and who you serve • Key programs and services offered • What makes your organization unique • Impact or outcomes you achieve
+                </p>
+                <p id="charCount" style="color: #64748b; font-size: 0.85em; margin: 0; margin-left: 15px; white-space: nowrap; font-weight: 600;">0 characters</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- CONTACT INFORMATION -->
+          <div style="border-bottom: 2px solid #e2e8f0; border-left: 4px solid #00bbb4; padding-left: 20px; padding-bottom: 20px; margin-bottom: 25px;">
+            <h3 style="color: #001c71; margin-bottom: 15px; font-size: 1.1em;">Contact Information</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+              <div>
+                <label for="editPhone">Phone Number (Primary)</label>
+                <input type="tel" id="editPhone" placeholder="+1-402-555-0100" style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 6px; font-size: 0.95em;">
+              </div>
+              <div>
+                <label for="editEmail">Email Address</label>
+                <input type="email" id="editEmail" placeholder="info@yourorg.org" style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 6px; font-size: 0.95em;">
+              </div>
+            </div>
+
+            <p style="color: #64748b; font-size: 0.9em; margin-bottom: 10px; font-weight: 600;">Additional Phone (Optional)</p>
+            <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 15px;">
+              <div>
+                <label for="editPhone2Type">Type</label>
+                <input type="text" id="editPhone2Type" placeholder="Box Office, Help Line, etc." style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 6px; font-size: 0.95em;">
+              </div>
+              <div>
+                <label for="editPhone2">Phone Number</label>
+                <input type="tel" id="editPhone2" placeholder="+1-402-555-0200" style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 6px; font-size: 0.95em;">
+              </div>
+            </div>
+          </div>
+
+          <!-- PHYSICAL ADDRESS -->
+          <div style="border-bottom: 2px solid #e2e8f0; border-left: 4px solid #001c71; padding-left: 20px; padding-bottom: 20px; margin-bottom: 25px;">
+            <h3 style="color: #001c71; margin-bottom: 15px; font-size: 1.1em;">Physical Address</h3>
+            <div style="display: grid; grid-template-columns: 1fr; gap: 15px;">
+              <div>
+                <label for="editStreet">Street Address</label>
+                <input type="text" id="editStreet" placeholder="123 Main Street" style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 6px; font-size: 0.95em;">
+              </div>
+              <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 15px;">
+                <div>
+                  <label for="editCity">City</label>
+                  <input type="text" id="editCity" placeholder="Lincoln" style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 6px; font-size: 0.95em;">
+                </div>
+                <div>
+                  <label for="editState">State</label>
+                  <input type="text" id="editState" placeholder="NE" style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 6px; font-size: 0.95em;">
+                </div>
+                <div>
+                  <label for="editZip">Zip</label>
+                  <input type="text" id="editZip" placeholder="68501" style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 6px; font-size: 0.95em;">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- OPTIONAL ENHANCEMENTS -->
+          <div style="border-bottom: 2px solid #e2e8f0; border-left: 4px solid #00bbb4; padding-left: 20px; padding-bottom: 20px; margin-bottom: 25px;">
+            <h3 style="color: #001c71; margin-bottom: 8px; font-size: 1.1em;">Optional Enhancements</h3>
+            <p style="color: #64748b; font-size: 0.9em; margin-bottom: 15px;">These fields help your organization stand out in AI search results</p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+              <div>
+                <label for="editLogo">Logo Image URL</label>
+                <input type="url" id="editLogo" placeholder="yournonprofit.org/logo.png" style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 6px; font-size: 0.95em;">
+                <p style="color: #64748b; font-size: 0.85em; margin-top: 5px;">Direct link to your logo image file</p>
+              </div>
+              <div>
+                <label for="editDonationUrl">Donation Page URL</label>
+                <input type="url" id="editDonationUrl" placeholder="yournonprofit.org/donate" style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 6px; font-size: 0.95em;">
+                <p style="color: #64748b; font-size: 0.85em; margin-top: 5px;">Link where people can donate</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- SOCIAL MEDIA -->
+          <div style="border-bottom: 2px solid #e2e8f0; border-left: 4px solid #001c71; padding-left: 20px; padding-bottom: 20px; margin-bottom: 25px;">
+            <h3 style="color: #001c71; margin-bottom: 15px; font-size: 1.1em;">Social Media (Optional)</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+              <div>
+                <label for="editFacebook">Facebook</label>
+                <input type="url" id="editFacebook" placeholder="https://facebook.com/yourorg" style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 6px; font-size: 0.95em;">
+              </div>
+              <div>
+                <label for="editInstagram">Instagram</label>
+                <input type="url" id="editInstagram" placeholder="https://instagram.com/yourorg" style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 6px; font-size: 0.95em;">
+              </div>
+              <div>
+                <label for="editTwitter">Twitter</label>
+                <input type="url" id="editTwitter" placeholder="https://twitter.com/yourorg" style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 6px; font-size: 0.95em;">
+              </div>
+              <div>
+                <label for="editLinkedIn">LinkedIn</label>
+                <input type="url" id="editLinkedIn" placeholder="https://linkedin.com/company/yourorg" style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 6px; font-size: 0.95em;">
+              </div>
+            </div>
+          </div>
+
+          <!-- HOURS -->
+          <div style="margin-bottom: 25px; border-left: 4px solid #00bbb4; padding-left: 20px;">
+            <h3 style="color: #001c71; margin-bottom: 15px; font-size: 1.1em;">Hours of Operation (Optional)</h3>
+            <label for="editHours">Enter in plain English</label>
+            <input type="text" id="editHours" placeholder="Monday-Friday 9am-5pm, Saturday 10am-2pm" style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 6px; font-size: 0.95em;">
+            <p style="color: #64748b; font-size: 0.85em; margin-top: 5px;">For example: "Monday-Friday 9am-5pm" or "Weekdays 8:30am-4:30pm"</p>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+            <button onclick="previewChanges()" style="width: 100%; padding: 16px; background: linear-gradient(135deg, #001c71 0%, #001554 100%); color: white; border: none; border-radius: 8px; font-size: 1.05em; font-weight: 600; cursor: pointer; font-family: 'sofia-pro-soft', sans-serif;">
+              Preview Changes
+            </button>
+            <button onclick="finalizeSchema()" style="width: 100%; padding: 16px; background: linear-gradient(135deg, #00bbb4 0%, #009a94 100%); color: white; border: none; border-radius: 8px; font-size: 1.05em; font-weight: 600; cursor: pointer; font-family: 'sofia-pro-soft', sans-serif;">
+              Finalize Schema
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2: Download Section (Hidden until finalized) -->
+      <div id="downloadSection" class="card" style="display: none;">
+        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 20px;">
+          <div style="flex: 1;">
+            <h2 style="margin-bottom: 10px;">Your Schema is Ready!</h2>
+            <p style="color: #64748b; margin-bottom: 0; line-height: 1.6;">
+              Your complete schema code is below. Copy it or download it, then add it to your website.
+            </p>
+          </div>
+          <button onclick="backToEdit()" onmouseover="this.style.background='#00bbb4'; this.style.color='white';" onmouseout="this.style.background='white'; this.style.color='#001c71';" style="padding: 12px 20px; background: white; color: #001c71; border: 2px solid #00bbb4; border-radius: 8px; font-size: 0.95em; font-weight: 600; cursor: pointer; font-family: 'sofia-pro-soft', sans-serif; white-space: nowrap; margin-left: 20px; transition: all 0.3s;">
+            ← Back to Edit
+          </button>
+        </div>
+
+        <details style="margin-bottom: 25px;">
+          <summary style="background: #f8f9fa; color: #001c71; border: 2px solid #00bbb4; padding: 16px; border-radius: 8px; cursor: pointer; font-weight: 600; display: flex; justify-content: space-between; align-items: center;">
+            <span>View Complete Schema Code</span>
+            <span style="color: #00bbb4; font-size: 1.2em;">▼</span>
+          </summary>
+          <div style="background: #f8fafc; padding: 25px; border-radius: 0 0 8px 8px; border: 2px solid #00bbb4; border-top: none; margin-top: -2px;">
+            <div style="position: relative;">
+              <button class="copy-btn" onclick="copySchema()" style="position: absolute; top: 10px; right: 10px; z-index: 10;">Copy Code</button>
+              <pre id="schemaCodeFinal" style="max-height: 400px; overflow-y: auto; margin: 0; padding-right: 120px; background: #001c71; color: #e2e8f0; padding: 20px; border-radius: 6px; font-size: 0.85em;"></pre>
+            </div>
+          </div>
+        </details>
+
+        <div style="display: flex; gap: 15px; margin-bottom: 30px; flex-wrap: wrap;">
+          <button onclick="copySchema()" style="flex: 1; min-width: 200px; padding: 16px; background: linear-gradient(135deg, #001c71 0%, #001554 100%); color: white; border: none; border-radius: 8px; font-size: 1.05em; font-weight: 600; cursor: pointer; font-family: 'sofia-pro-soft', sans-serif;">
+            Copy Code
+          </button>
+          <button onclick="downloadJSON()" style="flex: 1; min-width: 200px; padding: 16px; background: linear-gradient(135deg, #001c71 0%, #001554 100%); color: white; border: none; border-radius: 8px; font-size: 1.05em; font-weight: 600; cursor: pointer; font-family: 'sofia-pro-soft', sans-serif;">
+            Download JSON
+          </button>
+          <button onclick="downloadTXT()" style="flex: 1; min-width: 200px; padding: 16px; background: linear-gradient(135deg, #001c71 0%, #001554 100%); color: white; border: none; border-radius: 8px; font-size: 1.05em; font-weight: 600; cursor: pointer; font-family: 'sofia-pro-soft', sans-serif;">
+            📄 Download TXT
+          </button>
+        </div>
+        
+        <!-- Test Schema Button -->
+        <div style="text-align: center; margin-bottom: 30px;">
+          <button onclick="testSchema()" onmouseover="this.style.background='#00bbb4'; this.style.color='white';" onmouseout="this.style.background='white'; this.style.color='#00bbb4';" style="padding: 14px 30px; background: white; color: #00bbb4; border: 2px solid #00bbb4; border-radius: 8px; font-size: 1em; font-weight: 600; cursor: pointer; font-family: 'sofia-pro-soft', sans-serif; transition: all 0.3s;">
+            🧪 Test Schema with Validator
+          </button>
+          <p style="color: #64748b; font-size: 0.85em; margin-top: 8px;">Opens validator.schema.org with your code ready to test</p>
+        </div>
+
+        <details>
+          <summary style="background: #f8f9fa; color: #001c71; border: 2px solid #00bbb4; padding: 16px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 1.05em;">
+            How to Add This Schema to Your Website
+          </summary>
+          <div class="details-content" style="background: #ffffff; border: 1px solid #e2e8f0; border-top: none; padding: 20px; border-radius: 0 0 8px 8px;">
+          
+          <div style="margin-bottom: 20px;">
+            <h5 style="color: #001c71; margin-bottom: 10px; font-size: 1.05em;">For Most Websites (HTML/CMS):</h5>
+            <ol style="color: #334155; line-height: 1.8; margin-left: 20px;">
+              <li><strong>Copy the code</strong> - Click "View Schema Code" above, then click "Copy Code"</li>
+              <li><strong>Find your website's &lt;head&gt; section</strong> - This is in your HTML or theme editor</li>
+              <li><strong>Paste the code</strong> - Add it anywhere between <code style="background: #f1f5f9; padding: 2px 6px; border-radius: 3px;">&lt;head&gt;</code> and <code style="background: #f1f5f9; padding: 2px 6px; border-radius: 3px;">&lt;/head&gt;</code> tags</li>
+              <li><strong>Save and publish</strong> - Your changes go live</li>
+              <li><strong>Test it</strong> - Use <a href="https://validator.schema.org/" target="_blank" style="color: #00bbb4; text-decoration: none; font-weight: 600;">Schema Validator</a> to verify</li>
+            </ol>
+          </div>
+
+          <details style="margin-bottom: 10px; border: 1px solid #e2e8f0; background: #ffffff;">
+            <summary style="cursor: pointer; color: #001c71; font-weight: 600; padding: 12px; background: #f8f9fa;">Platform-Specific Instructions</summary>
+            <div style="padding: 15px; color: #334155; line-height: 1.7;">
+              
+              <details style="margin-bottom: 10px;">
+                <summary style="cursor: pointer; font-weight: 600; padding: 8px 0;">WordPress</summary>
+                <div style="padding: 10px 0;">
+                  <strong>Option 1 - Using a Plugin (Easiest):</strong><br>
+                  • Install "Insert Headers and Footers" or "WPCode" plugin<br>
+                  • Go to plugin settings<br>
+                  • Paste code in "Header Scripts" section<br>
+                  • Save changes<br><br>
+                  <strong>Option 2 - Theme Editor:</strong><br>
+                  • Go to Appearance → Theme File Editor<br>
+                  • Click on <code style="background: #f1f5f9; padding: 2px 6px; border-radius: 3px;">header.php</code><br>
+                  • Paste code before the closing <code style="background: #f1f5f9; padding: 2px 6px; border-radius: 3px;">&lt;/head&gt;</code> tag<br>
+                  • Update file
+                </div>
+              </details>
+
+              <details style="margin-bottom: 10px;">
+                <summary style="cursor: pointer; font-weight: 600; padding: 8px 0;">Squarespace</summary>
+                <div style="padding: 10px 0;">
+                  • Go to Settings → Advanced → Code Injection<br>
+                  • Paste code in "Header" section<br>
+                  • Click Save<br>
+                  • Note: Requires Business plan or higher
+                </div>
+              </details>
+
+              <details style="margin-bottom: 10px;">
+                <summary style="cursor: pointer; font-weight: 600; padding: 8px 0;">Wix</summary>
+                <div style="padding: 10px 0;">
+                  • Go to Settings → Custom Code<br>
+                  • Click "+ Add Custom Code"<br>
+                  • Name it "Schema Markup"<br>
+                  • Paste code<br>
+                  • Choose "Head" for placement<br>
+                  • Apply to all pages<br>
+                  • Click Apply
+                </div>
+              </details>
+
+              <details style="margin-bottom: 10px;">
+                <summary style="cursor: pointer; font-weight: 600; padding: 8px 0;">Shopify</summary>
+                <div style="padding: 10px 0;">
+                  • Go to Online Store → Themes<br>
+                  • Click "..." → Edit code<br>
+                  • Open <code style="background: #f1f5f9; padding: 2px 6px; border-radius: 3px;">theme.liquid</code><br>
+                  • Paste code before <code style="background: #f1f5f9; padding: 2px 6px; border-radius: 3px;">&lt;/head&gt;</code><br>
+                  • Save
+                </div>
+              </details>
+
+              <details>
+                <summary style="cursor: pointer; font-weight: 600; padding: 8px 0;">Webflow</summary>
+                <div style="padding: 10px 0;">
+                  • Go to Project Settings (gear icon)<br>
+                  • Click Custom Code<br>
+                  • Paste code in "Head Code" section<br>
+                  • Save and publish
+                </div>
+              </details>
+            </div>
+          </details>
+
+          <div style="padding: 15px; background: #f8f9fa; border: 2px solid #00bbb4; border-radius: 6px; margin-top: 15px;">
+            <strong style="color: #001c71;">Important:</strong>
+            <p style="color: #334155; margin-top: 8px; line-height: 1.6; margin-bottom: 0;">
+              Add schema to your <strong>homepage</strong> first. If you serve different programs or locations, you may want customized schema on those pages too.
+            </p>
+          </div>
+
+          <p style="color: #334155; font-size: 0.9em; margin-top: 15px; font-style: italic; margin-bottom: 0;">
+            Need help implementing? <a href="https://filamentservices.org" target="_blank" style="color: #00bbb4; text-decoration: none; font-weight: 600;">Contact Filament</a> for assistance.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p>Schema Markup Generator provided by <a href="https://filamentservices.org" target="_blank" rel="noopener noreferrer">Filament Essential Services</a></p>
+      <p style="margin-top: 8px; font-size: 0.85em;">Helping nonprofits increase visibility, attract donors, and connect with the communities they serve</p>
+    </footer>
+  </div>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+  
+  <script>
+    let currentState = {
+      url: '',
+      schemaType: 'auto',
+      schema: '',
+      faviconUrl: ''
+    };
+
+    // Toggle collapsible sections
+    function toggleSection(id) {
+      const content = document.getElementById(id);
+      const header = content.previousElementSibling;
+      content.classList.toggle('active');
+      header.classList.toggle('active');
+    }
+
+    // Progress animation
+    function simulateProgress() {
+      const progressBar = document.getElementById('progressBar');
+      const steps = ['step1', 'step2', 'step3', 'step4', 'step5'];
+      
+      // Reset
+      if (progressBar) progressBar.style.width = '0%';
+      steps.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.remove('active', 'complete');
+      });
+
+      // Initial scan progress (5 steps)
+      setTimeout(() => {
+        if (progressBar) progressBar.style.width = '20%';
+        document.getElementById('step1')?.classList.add('active');
+      }, 500);
+      setTimeout(() => {
+        document.getElementById('step1')?.classList.replace('active', 'complete');
+        document.getElementById('step2')?.classList.add('active');
+        if (progressBar) progressBar.style.width = '40%';
+      }, 3000);
+      setTimeout(() => {
+        document.getElementById('step2')?.classList.replace('active', 'complete');
+        document.getElementById('step3')?.classList.add('active');
+        if (progressBar) progressBar.style.width = '60%';
+      }, 6000);
+      setTimeout(() => {
+        document.getElementById('step3')?.classList.replace('active', 'complete');
+        document.getElementById('step4')?.classList.add('active');
+        if (progressBar) progressBar.style.width = '80%';
+      }, 10000);
+      setTimeout(() => {
+        document.getElementById('step4')?.classList.replace('active', 'complete');
+        document.getElementById('step5')?.classList.add('active');
+        if (progressBar) progressBar.style.width = '95%';
+      }, 15000);
+    }
+
+    // Generate schema
+    document.getElementById('generateBtn').addEventListener('click', async () => {
+      const url = document.getElementById('urlInput').value.trim();
+      if (!url) {
+        alert('Please enter a URL');
+        return;
+      }
+      
+      // Add https:// if no protocol specified
+      let processedUrl = url;
+      if (!processedUrl.match(/^https?:\/\//i)) {
+        processedUrl = 'https://' + processedUrl;
+      }
+
+      // RESET: Clear previous results and form fields
+      document.getElementById('results').style.display = 'none';
+      document.getElementById('quickFinalizeBtn').style.display = 'none';
+      
+      // Clear all form fields
+      document.getElementById('editOrgName').value = '';
+      document.getElementById('editUrl').value = '';
+      document.getElementById('editDescription').value = '';
+      document.getElementById('editPhone').value = '';
+      document.getElementById('editPhone2').value = '';
+      document.getElementById('editPhone2Type').value = '';
+      document.getElementById('editEmail').value = '';
+      document.getElementById('editStreet').value = '';
+      document.getElementById('editCity').value = '';
+      document.getElementById('editState').value = '';
+      document.getElementById('editZip').value = '';
+      document.getElementById('editLogo').value = '';
+      document.getElementById('editDonationUrl').value = '';
+      document.getElementById('editFacebook').value = '';
+      document.getElementById('editInstagram').value = '';
+      document.getElementById('editTwitter').value = '';
+      document.getElementById('editLinkedIn').value = '';
+      document.getElementById('editHours').value = '';
+
+      currentState.url = processedUrl;
+
+      // Extract domain and get favicon
+      try {
+        const urlObj = new URL(processedUrl);
+        const domain = urlObj.hostname;
+        currentState.faviconUrl = `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
+        
+        // Set favicon in loading display
+        const faviconImg = document.getElementById('loadingFavicon');
+        if (faviconImg) {
+          faviconImg.src = currentState.faviconUrl;
+          faviconImg.style.display = 'block';
+          faviconImg.nextElementSibling.style.display = 'none';
+        }
+      } catch (e) {
+        console.error('Error getting favicon:', e);
+        // Fallback to magnifying glass if URL parsing fails
+        const faviconImg = document.getElementById('loadingFavicon');
+        if (faviconImg) {
+          faviconImg.style.display = 'none';
+          faviconImg.nextElementSibling.style.display = 'block';
+        }
+      }
+
+      document.getElementById('generateBtn').disabled = true;
+      document.getElementById('loading').style.display = 'block';
+      document.getElementById('results').style.display = 'none';
+      document.getElementById('error').style.display = 'none';
+      simulateProgress();
+
+      // Function to attempt generation
+      const attemptGeneration = async (isRetry = false) => {
+        if (isRetry) {
+          // Update loading message for retry
+          document.querySelector('#loading h3').textContent = 'Retrying... This may take a moment';
+          simulateProgress(); // Restart progress bar
+        }
+
+        try {
+          const response = await fetch('/api/generate', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ url: processedUrl, schemaType: currentState.schemaType })
+          });
+
+          const data = await response.json();
+          if (!response.ok) throw new Error(data.error);
+
+          currentState.schema = data.schema;
+          displayResults();
+          
+          // Reset loading message
+          document.querySelector('#loading h3').textContent = 'Analyzing Your Organization\'s Website';
+
+        } catch (error) {
+          // If timeout and this is first attempt, retry once
+          if (!isRetry && (error.message.includes('timeout') || error.message.includes('TIMEOUT') || error.message.includes('timed out'))) {
+            console.log('Timeout detected, retrying...');
+            return await attemptGeneration(true);
+          }
+          
+          // Format error message for display
+          let errorMsg = error.message;
+          if (errorMsg.includes('timeout') || errorMsg.includes('TIMEOUT')) {
+            errorMsg = 'The request timed out. This sometimes happens with complex websites. Please try again - it often works on the second attempt.';
+          }
+          
+          // Otherwise show error
+          document.getElementById('error').textContent = errorMsg;
+          document.getElementById('error').style.display = 'block';
+          document.querySelector('#loading h3').textContent = 'Analyzing Your Organization\'s Website';
+        } finally {
+          document.getElementById('generateBtn').disabled = false;
+          document.getElementById('loading').style.display = 'none';
+        }
+      };
+
+      await attemptGeneration(false);
+    });
+
+    // Display results
+    function displayResults() {
+      document.getElementById('results').style.display = 'block';
+      
+      const preview = parseSchema(currentState.schema);
+      // Don't show logo in initial preview - AI-generated logos are often wrong
+      // Users can add their logo manually via the form if desired
+      preview.logo = '';
+      document.getElementById('preview').innerHTML = renderPreview(preview);
+      detectLogoBackground();
+      
+      // Show review section, hide download section
+      document.getElementById('reviewSection').style.display = 'block';
+      document.getElementById('downloadSection').style.display = 'none';
+      
+      // Populate edit form
+      populateEditForm();
+      
+      // Update character count to show current description length
+      updateCharCount();
+      
+      // Scroll to TOP of results
+      document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // Preview changes from form without finalizing
+    function previewChanges() {
+      try {
+        // Parse current schema
+        let json = currentState.schema.trim();
+        const start = json.indexOf('{');
+        if (start > 0) json = json.substring(start);
+        
+        let count = 0, end = -1;
+        for (let i = 0; i < json.length; i++) {
+          if (json[i] === '{') count++;
+          if (json[i] === '}' && --count === 0) {
+            end = i + 1;
+            break;
+          }
+        }
+        if (end > 0) json = json.substring(0, end);
+
+        const schema = JSON.parse(json);
+        const actual = schema['@graph'] ? schema['@graph'][0] : schema;
+
+        // Update basic fields - delete if empty
+        const orgName = document.getElementById('editOrgName').value.trim();
+        const url = document.getElementById('editUrl').value.trim();
+        const description = document.getElementById('editDescription').value.trim();
+        const phone = document.getElementById('editPhone').value.trim();
+        const phone2 = document.getElementById('editPhone2').value.trim();
+        const phone2Type = document.getElementById('editPhone2Type').value.trim();
+        const email = document.getElementById('editEmail').value.trim();
+        
+        if (orgName) actual.name = orgName;
+        else delete actual.name;
+        
+        if (url) actual.url = url;
+        else delete actual.url;
+        
+        if (description) actual.description = description;
+        else delete actual.description;
+        
+        if (email) actual.email = email;
+        else delete actual.email;
+        
+        // Handle phone numbers - support primary + additional
+        if (phone && phone2) {
+          // Both phones provided - use array
+          actual.telephone = [
+            phone,
+            {
+              "@type": "ContactPoint",
+              "telephone": phone2,
+              "contactType": phone2Type || "Additional"
+            }
+          ];
+        } else if (phone) {
+          // Only primary phone
+          actual.telephone = phone;
+        } else if (phone2) {
+          // Only additional phone (unusual but handle it)
+          actual.telephone = {
+            "@type": "ContactPoint",
+            "telephone": phone2,
+            "contactType": phone2Type || "Main"
+          };
+        } else {
+          // No phones at all - delete the field
+          delete actual.telephone;
+        }
+
+        // Update address
+        const street = document.getElementById('editStreet').value.trim();
+        const city = document.getElementById('editCity').value.trim();
+        const state = document.getElementById('editState').value.trim();
+        const zip = document.getElementById('editZip').value.trim();
+
+        if (street || city || state || zip) {
+          const address = {
+            "@type": "PostalAddress"
+          };
+          if (street) address.streetAddress = street;
+          if (city) address.addressLocality = city;
+          if (state) address.addressRegion = state;
+          if (zip) address.postalCode = zip;
+          
+          // Update both locations where address might be
+          if (actual.location && typeof actual.location === 'object') {
+            actual.location.address = address;
+          } else {
+            actual.address = address;
+          }
+        } else {
+          // No address provided - delete it
+          if (actual.location && actual.location.address) {
+            delete actual.location.address;
+          }
+          delete actual.address;
+        }
+
+        // Update social media
+        const facebook = document.getElementById('editFacebook').value.trim();
+        const instagram = document.getElementById('editInstagram').value.trim();
+        const twitter = document.getElementById('editTwitter').value.trim();
+        const linkedin = document.getElementById('editLinkedIn').value.trim();
+        
+        const sameAs = [];
+        if (facebook) sameAs.push(facebook);
+        if (instagram) sameAs.push(instagram);
+        if (twitter) sameAs.push(twitter);
+        if (linkedin) sameAs.push(linkedin);
+        
+        if (sameAs.length > 0) {
+          actual.sameAs = sameAs;
+        } else {
+          delete actual.sameAs;
+        }
+
+        // Update hours
+        const hours = document.getElementById('editHours').value.trim();
+        if (hours) {
+          actual.openingHours = hours;
+        } else {
+          delete actual.openingHours;
+        }
+
+        // Update logo
+        const logo = document.getElementById('editLogo').value.trim();
+        if (logo) {
+          actual.logo = logo;
+        } else {
+          delete actual.logo;
+        }
+
+        // Update donation URL
+        const donationUrl = document.getElementById('editDonationUrl').value.trim();
+        if (donationUrl) {
+          actual.donationUrl = donationUrl;
+        } else {
+          delete actual.donationUrl;
+        }
+
+        // Update the schema in state
+        if (schema['@graph']) {
+          schema['@graph'][0] = actual;
+        }
+        currentState.schema = JSON.stringify(schema, null, 2);
+
+        // Update preview with changes
+        const preview = parseSchema(currentState.schema);
+        const previewElement = document.getElementById('preview');
+        previewElement.innerHTML = renderPreview(preview, true); // Show updated badge
+        detectLogoBackground();
+        
+        // Add highlight animation to show update
+        previewElement.classList.remove('updated');
+        setTimeout(() => {
+          previewElement.classList.add('updated');
+        }, 10);
+        
+        // Remove animation class after it completes
+        setTimeout(() => {
+          previewElement.classList.remove('updated');
+        }, 1000);
+
+        // Show quick finalize button under preview
+        document.getElementById('quickFinalizeBtn').style.display = 'block';
+
+        // Scroll to preview to show updated result
+        document.getElementById('preview').scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      } catch (e) {
+        alert('Error previewing changes: ' + e.message);
+        console.error('Preview error:', e);
+      }
+    }
+
+    // Finalize schema - apply edits and show download section
+    function finalizeSchema() {
+      try {
+        // Parse current schema
+        let json = currentState.schema.trim();
+        const start = json.indexOf('{');
+        if (start > 0) json = json.substring(start);
+        
+        let count = 0, end = -1;
+        for (let i = 0; i < json.length; i++) {
+          if (json[i] === '{') count++;
+          if (json[i] === '}' && --count === 0) {
+            end = i + 1;
+            break;
+          }
+        }
+        if (end > 0) json = json.substring(0, end);
+
+        const schema = JSON.parse(json);
+        const actual = schema['@graph'] ? schema['@graph'][0] : schema;
+
+        // Update basic fields - delete if empty
+        const orgName = document.getElementById('editOrgName').value.trim();
+        const url = document.getElementById('editUrl').value.trim();
+        const description = document.getElementById('editDescription').value.trim();
+        const phone = document.getElementById('editPhone').value.trim();
+        const phone2 = document.getElementById('editPhone2').value.trim();
+        const phone2Type = document.getElementById('editPhone2Type').value.trim();
+        const email = document.getElementById('editEmail').value.trim();
+        
+        if (orgName) actual.name = orgName;
+        else delete actual.name;
+        
+        if (url) actual.url = url;
+        else delete actual.url;
+        
+        if (description) actual.description = description;
+        else delete actual.description;
+        
+        if (email) actual.email = email;
+        else delete actual.email;
+        
+        // Handle phone numbers - support primary + additional
+        if (phone && phone2) {
+          // Both phones provided - use array
+          actual.telephone = [
+            phone,
+            {
+              "@type": "ContactPoint",
+              "telephone": phone2,
+              "contactType": phone2Type || "Additional"
+            }
+          ];
+        } else if (phone) {
+          // Only primary phone
+          actual.telephone = phone;
+        } else if (phone2) {
+          // Only additional phone (unusual but handle it)
+          actual.telephone = {
+            "@type": "ContactPoint",
+            "telephone": phone2,
+            "contactType": phone2Type || "Main"
+          };
+        } else {
+          // No phones at all - delete the field
+          delete actual.telephone;
+        }
+
+        // Update address
+        const street = document.getElementById('editStreet').value.trim();
+        const city = document.getElementById('editCity').value.trim();
+        const state = document.getElementById('editState').value.trim();
+        const zip = document.getElementById('editZip').value.trim();
+
+        if (street || city || state || zip) {
+          const address = {
+            "@type": "PostalAddress"
+          };
+          if (street) address.streetAddress = street;
+          if (city) address.addressLocality = city;
+          if (state) address.addressRegion = state;
+          if (zip) address.postalCode = zip;
+          
+          // Update both locations where address might be
+          if (actual.location && typeof actual.location === 'object') {
+            actual.location.address = address;
+          } else {
+            actual.address = address;
+          }
+        } else {
+          // No address provided - delete it
+          if (actual.location && actual.location.address) {
+            delete actual.location.address;
+          }
+          delete actual.address;
+        }
+
+        // Update social media
+        const facebook = document.getElementById('editFacebook').value.trim();
+        const instagram = document.getElementById('editInstagram').value.trim();
+        const twitter = document.getElementById('editTwitter').value.trim();
+        const linkedin = document.getElementById('editLinkedIn').value.trim();
+        
+        const sameAs = [];
+        if (facebook) sameAs.push(facebook);
+        if (instagram) sameAs.push(instagram);
+        if (twitter) sameAs.push(twitter);
+        if (linkedin) sameAs.push(linkedin);
+        
+        if (sameAs.length > 0) {
+          actual.sameAs = sameAs;
+        } else {
+          delete actual.sameAs;
+        }
+
+        // Update hours
+        const hours = document.getElementById('editHours').value.trim();
+        if (hours) {
+          actual.openingHours = hours;
+        } else {
+          delete actual.openingHours;
+        }
+
+        // Update logo
+        const logo = document.getElementById('editLogo').value.trim();
+        if (logo) {
+          actual.logo = logo;
+        } else {
+          delete actual.logo;
+        }
+
+        // Update donation URL
+        const donationUrl = document.getElementById('editDonationUrl').value.trim();
+        if (donationUrl) {
+          actual.donationUrl = donationUrl;
+        } else {
+          delete actual.donationUrl;
+        }
+
+        // Update the schema in state
+        if (schema['@graph']) {
+          schema['@graph'][0] = actual;
+        }
+        currentState.schema = JSON.stringify(schema, null, 2);
+
+        // Update preview with any changes
+        const preview = parseSchema(currentState.schema);
+        document.getElementById('preview').innerHTML = renderPreview(preview);
+        detectLogoBackground(); // Detect logo background after rendering
+        
+        // Update code displays
+        document.getElementById('schemaCodeFinal').textContent = currentState.schema;
+
+        // Hide review section, show download section
+        document.getElementById('reviewSection').style.display = 'none';
+        document.getElementById('quickFinalizeBtn').style.display = 'none';
+        document.getElementById('downloadSection').style.display = 'block';
+
+        // Scroll to download section
+        document.getElementById('downloadSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      } catch (e) {
+        alert('Error finalizing schema: ' + e.message);
+        console.error('Finalize error:', e);
+      }
+    }
+
+    // Populate edit form with current schema data
+    function populateEditForm() {
+      try {
+        let json = currentState.schema.trim();
+        const start = json.indexOf('{');
+        if (start > 0) json = json.substring(start);
+        
+        let count = 0, end = -1;
+        for (let i = 0; i < json.length; i++) {
+          if (json[i] === '{') count++;
+          if (json[i] === '}' && --count === 0) {
+            end = i + 1;
+            break;
+          }
+        }
+        if (end > 0) json = json.substring(0, end);
+
+        const schema = JSON.parse(json);
+        const actual = schema['@graph'] ? schema['@graph'][0] : schema;
+
+        // Populate basic fields
+        document.getElementById('editOrgName').value = actual.name || '';
+        document.getElementById('editUrl').value = actual.url || '';
+        document.getElementById('editDescription').value = actual.description || '';
+        
+        // Handle email - string, array, or object
+        if (actual.email) {
+          if (typeof actual.email === 'string') {
+            document.getElementById('editEmail').value = actual.email;
+          } else if (Array.isArray(actual.email)) {
+            document.getElementById('editEmail').value = actual.email[0];
+          } else if (typeof actual.email === 'object') {
+            document.getElementById('editEmail').value = actual.email.email || actual.email.value || '';
+          }
+        }
+        
+        // Handle telephone - support primary + additional
+        if (actual.telephone) {
+          if (typeof actual.telephone === 'string') {
+            // Simple string
+            document.getElementById('editPhone').value = actual.telephone;
+          } else if (Array.isArray(actual.telephone)) {
+            // Array - first is primary, second might be additional with type
+            document.getElementById('editPhone').value = typeof actual.telephone[0] === 'string' ? actual.telephone[0] : actual.telephone[0]?.telephone || '';
+            
+            // Check for second phone
+            if (actual.telephone.length > 1) {
+              const phone2 = actual.telephone[1];
+              if (typeof phone2 === 'string') {
+                document.getElementById('editPhone2').value = phone2;
+              } else if (phone2['@type'] === 'ContactPoint') {
+                document.getElementById('editPhone2').value = phone2.telephone || '';
+                document.getElementById('editPhone2Type').value = phone2.contactType || '';
+              }
+            }
+          } else if (typeof actual.telephone === 'object') {
+            // Single object
+            document.getElementById('editPhone').value = actual.telephone.telephone || actual.telephone.value || '';
+          }
+        }
+
+        // Handle address - check both location.address and direct address
+        let addr = null;
+        if (actual.location && actual.location.address) {
+          addr = actual.location.address;
+        } else if (actual.address) {
+          addr = actual.address;
+        }
+
+        if (addr && typeof addr === 'object') {
+          document.getElementById('editStreet').value = addr.streetAddress || '';
+          document.getElementById('editCity').value = addr.addressLocality || '';
+          document.getElementById('editState').value = addr.addressRegion || '';
+          document.getElementById('editZip').value = addr.postalCode || '';
+        }
+
+        // Handle social media
+        if (actual.sameAs && Array.isArray(actual.sameAs)) {
+          actual.sameAs.forEach(url => {
+            if (url.includes('facebook')) document.getElementById('editFacebook').value = url;
+            if (url.includes('instagram')) document.getElementById('editInstagram').value = url;
+            if (url.includes('twitter') || url.includes('x.com')) document.getElementById('editTwitter').value = url;
+            if (url.includes('linkedin')) document.getElementById('editLinkedIn').value = url;
+          });
+        }
+
+        // Handle hours
+        if (actual.openingHours) {
+          document.getElementById('editHours').value = actual.openingHours;
+        }
+
+        // DON'T pre-populate logo - let users add manually if desired
+        // Auto-detected logos are often wrong (white logos, broken URLs, etc.)
+        document.getElementById('editLogo').value = '';
+
+        // Handle donation URL
+        if (actual.donationUrl) {
+          document.getElementById('editDonationUrl').value = actual.donationUrl;
+        }
+
+      } catch (e) {
+        console.error('Error populating form:', e);
+      }
+    }
+
+    // Update schema with form data
+    // Parse schema
+    function parseSchema(code) {
+      try {
+        let json = code.trim();
+        const start = json.indexOf('{');
+        if (start > 0) json = json.substring(start);
+        
+        let count = 0, end = -1;
+        for (let i = 0; i < json.length; i++) {
+          if (json[i] === '{') count++;
+          if (json[i] === '}' && --count === 0) {
+            end = i + 1;
+            break;
+          }
+        }
+        if (end > 0) json = json.substring(0, end);
+
+        const schema = JSON.parse(json);
+        const actual = schema['@graph'] ? schema['@graph'][0] : schema;
+
+        // Extract email - handle string, array of strings, array of objects, or object
+        let email = '';
+        if (actual.email) {
+          if (typeof actual.email === 'string') {
+            email = actual.email;
+          } else if (Array.isArray(actual.email)) {
+            email = actual.email.map(e => typeof e === 'string' ? e : e.email || e.value || '').filter(Boolean).join(', ');
+          } else if (typeof actual.email === 'object') {
+            email = actual.email.email || actual.email.value || '';
+          }
+        }
+
+        // Extract phone - handle string, array, or object - preserve types
+        let telephone = '';
+        let telephone2 = '';
+        let telephone2Type = '';
+        
+        if (actual.telephone) {
+          if (typeof actual.telephone === 'string') {
+            telephone = actual.telephone;
+          } else if (Array.isArray(actual.telephone)) {
+            // First phone
+            telephone = typeof actual.telephone[0] === 'string' ? actual.telephone[0] : actual.telephone[0]?.telephone || '';
+            
+            // Second phone with potential type
+            if (actual.telephone.length > 1) {
+              const phone2 = actual.telephone[1];
+              if (typeof phone2 === 'string') {
+                telephone2 = phone2;
+              } else if (phone2['@type'] === 'ContactPoint') {
+                telephone2 = phone2.telephone || '';
+                telephone2Type = phone2.contactType || '';
+              }
+            }
+          } else if (typeof actual.telephone === 'object') {
+            telephone = actual.telephone.telephone || actual.telephone.value || '';
+          }
+        }
+
+        // Extract organization name for validation
+        const orgName = actual.name || actual.headline || 'Organization';
+
+        // Extract location - handle multiple formats, be smart about organization name
+        let location = '';
+        if (actual.location) {
+          if (typeof actual.location === 'string') {
+            // Don't use if it's the same as organization name
+            if (actual.location !== orgName) {
+              location = actual.location;
+            }
+          } else if (actual.location.name) {
+            // Don't use location.name if it matches the org name
+            if (actual.location.name !== orgName) {
+              location = actual.location.name;
+            }
+          }
+          
+          // Try to build from address object if we don't have a good location yet
+          if (!location && actual.location.address) {
+            const addr = actual.location.address;
+            if (typeof addr === 'string') {
+              location = addr;
+            } else {
+              // Build address from PostalAddress object
+              const parts = [
+                addr.streetAddress,
+                addr.addressLocality,
+                addr.addressRegion,
+                addr.postalCode
+              ].filter(Boolean);
+              if (parts.length > 0) {
+                location = parts.join(', ');
+              }
+            }
+          }
+        }
+        
+        // Also check for direct address property if location failed
+        if (!location && actual.address) {
+          const addr = actual.address;
+          if (typeof addr === 'string') {
+            // Don't use if it's the same as organization name
+            if (addr !== orgName) {
+              location = addr;
+            }
+          } else {
+            const parts = [
+              addr.streetAddress,
+              addr.addressLocality,
+              addr.addressRegion,
+              addr.postalCode
+            ].filter(Boolean);
+            if (parts.length > 0) {
+              location = parts.join(', ');
+            }
+          }
+        }
+
+        // Validate we got useful data
+        const result = {
+          type: actual['@type'] || 'Organization',
+          title: orgName,
+          description: actual.description || 'No description available',
+          telephone: telephone,
+          telephone2: telephone2,
+          telephone2Type: telephone2Type,
+          email: email,
+          location: location,
+          url: actual.url,
+          logo: actual.logo ? (typeof actual.logo === 'string' ? actual.logo : actual.logo.url) : '',
+          donationUrl: actual.donationUrl || '',
+          openingHours: actual.openingHours || '',
+          sameAs: actual.sameAs || []
+        };
+
+        // Log for debugging
+        console.log('Parsed schema preview:', result);
+
+        return result;
+      } catch (e) {
+        console.error('Parse error:', e);
+        console.error('Failed to parse schema code:', code.substring(0, 500));
+        return { 
+          type: 'Organization', 
+          title: 'Schema Generated', 
+          description: 'Preview unavailable - but schema code is valid and can be downloaded below',
+          telephone: '',
+          telephone2: '',
+          telephone2Type: '',
+          email: '',
+          location: '',
+          url: '',
+          logo: '',
+          donationUrl: '',
+          openingHours: '',
+          sameAs: []
+        };
+      }
+    }
+
+    // Render preview
+    function renderPreview(p, showUpdatedBadge = false) {
+      let meta = '';
+      if (p.telephone) meta += `<span><strong>Phone:</strong> <a href="tel:${p.telephone}" style="color: #00bbb4; text-decoration: none;">${p.telephone}</a></span>`;
+      if (p.telephone2) {
+        const phoneLabel = p.telephone2Type ? `${p.telephone2Type}:` : 'Phone:';
+        meta += `<span><strong>${phoneLabel}</strong> <a href="tel:${p.telephone2}" style="color: #00bbb4; text-decoration: none;">${p.telephone2}</a></span>`;
+      }
+      if (p.email) meta += `<span><strong>Email:</strong> <a href="mailto:${p.email}" style="color: #00bbb4; text-decoration: none;">${p.email}</a></span>`;
+      if (p.location) {
+        const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.location)}`;
+        meta += `<span><strong>Location:</strong> <a href="${mapsUrl}" target="_blank" style="color: #00bbb4; text-decoration: none;">${p.location}</a></span>`;
+      }
+      if (p.url) meta += `<span><strong>Website:</strong> <a href="${p.url}" target="_blank" style="color: #00bbb4; text-decoration: none;">${p.url}</a></span>`;
+      if (p.openingHours) meta += `<span><strong>Hours:</strong> ${p.openingHours}</span>`;
+      if (p.donationUrl) meta += `<span><strong>Donate:</strong> <a href="${p.donationUrl}" target="_blank" style="color: #00bbb4; text-decoration: none;">${p.donationUrl}</a></span>`;
+      
+      // Add social media links if present
+      if (p.sameAs && p.sameAs.length > 0) {
+        const socialLinks = p.sameAs.map(url => {
+          let platform = 'Link';
+          if (url.includes('facebook')) platform = 'Facebook';
+          else if (url.includes('instagram')) platform = 'Instagram';
+          else if (url.includes('twitter') || url.includes('x.com')) platform = 'Twitter';
+          else if (url.includes('linkedin')) platform = 'LinkedIn';
+          return `<a href="${url}" target="_blank" style="color: #00bbb4; text-decoration: none;">${platform}</a>`;
+        }).join(' • ');
+        meta += `<span><strong>Social:</strong> ${socialLinks}</span>`;
+      }
+
+      // Logo with smart background detection
+      let logoHtml = '';
+      if (p.logo) {
+        // Create container with ID for background detection
+        logoHtml = `<div id="logoContainer" style="text-align: center; margin-bottom: 15px; padding: 15px; border-radius: 8px; transition: background 0.3s;">
+          <img id="logoImage" src="${p.logo}" alt="Logo" style="max-width: 150px; max-height: 80px; object-fit: contain;">
+        </div>`;
+      }
+      
+      // Updated badge (top-right corner)
+      const updatedBadge = showUpdatedBadge ? `
+        <div style="position: absolute; top: 12px; right: 12px; background: #fee2e2; border: 2px solid #ef4444; padding: 6px 12px; border-radius: 6px; color: #991b1b; font-weight: 600; font-size: 0.75em; box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);">
+          UPDATED
+        </div>` : '';
+
+      return `
+        ${updatedBadge}
+        ${logoHtml}
+        <div class="preview-title">${p.title}</div>
+        <div class="preview-desc">${p.description}</div>
+        ${meta ? `<div class="preview-meta">${meta}</div>` : ''}
+      `;
+    }
+    
+    // Detect if logo is predominantly white/light and add gray background if needed
+    function detectLogoBackground() {
+      const img = document.getElementById('logoImage');
+      const container = document.getElementById('logoContainer');
+      
+      if (!img || !container) return;
+      
+      // Create a hidden clone for CORS-safe detection
+      const testImg = new Image();
+      testImg.crossOrigin = 'anonymous';
+      
+      testImg.onload = function() {
+        try {
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+          canvas.width = testImg.naturalWidth;
+          canvas.height = testImg.naturalHeight;
+          
+          ctx.drawImage(testImg, 0, 0);
+          const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+          const pixels = imageData.data;
+          
+          let lightPixels = 0;
+          let totalPixels = 0;
+          
+          // Sample pixels (check every 10th pixel for performance)
+          for (let i = 0; i < pixels.length; i += 40) {
+            const r = pixels[i];
+            const g = pixels[i + 1];
+            const b = pixels[i + 2];
+            const a = pixels[i + 3];
+            
+            // Skip transparent pixels
+            if (a < 128) continue;
+            
+            totalPixels++;
+            // Consider light if RGB values are all above 200
+            if (r > 200 && g > 200 && b > 200) {
+              lightPixels++;
+            }
+          }
+          
+          // If more than 60% of pixels are light, add gray background
+          if (totalPixels > 0 && lightPixels / totalPixels > 0.6) {
+            container.style.background = '#808080';
+            container.style.border = '1px solid #6b7280';
+          } else {
+            // Keep transparent for colored logos
+            container.style.background = 'transparent';
+            container.style.border = 'none';
+          }
+        } catch (e) {
+          // CORS error or other issue - use subtle border as fallback
+          console.log('Logo detection failed (CORS), using transparent background');
+          container.style.background = 'transparent';
+          container.style.border = '1px solid #e5e7eb';
+        }
+      };
+      
+      testImg.onerror = function() {
+        // Image failed to load with CORS - use transparent with border
+        console.log('Logo CORS blocked, using transparent background');
+        container.style.background = 'transparent';
+        container.style.border = '1px solid #e5e7eb';
+      };
+      
+      // Load the image for testing
+      testImg.src = img.src;
+    }
+
+    // Copy to clipboard
+    function copySchema() {
+      navigator.clipboard.writeText(currentState.schema).then(() => {
+        // Find all copy buttons and update them
+        const buttons = document.querySelectorAll('.copy-btn, [onclick*="copySchema"]');
+        buttons.forEach(btn => {
+          const originalText = btn.innerHTML;
+          btn.innerHTML = '✓ Copied!';
+          btn.style.background = '#10b981';
+          btn.style.transform = 'scale(1.05)';
+          
+          setTimeout(() => {
+            btn.innerHTML = originalText;
+            btn.style.background = '';
+            btn.style.transform = '';
+          }, 2000);
+        });
+      });
+    }
+    
+    // Update character count for description field
+    function updateCharCount() {
+      const textarea = document.getElementById('editDescription');
+      const counter = document.getElementById('charCount');
+      const length = textarea.value.length;
+      
+      if (length === 0) {
+        counter.textContent = '0 characters';
+        counter.style.color = '#64748b';
+      } else if (length < 100) {
+        counter.textContent = `${length} characters - Add more detail`;
+        counter.style.color = '#f59e0b';
+      } else if (length <= 200) {
+        counter.textContent = `${length} characters - Good length`;
+        counter.style.color = '#10b981';
+      } else if (length <= 400) {
+        counter.textContent = `${length} characters - Great!`;
+        counter.style.color = '#10b981';
+      } else if (length <= 500) {
+        counter.textContent = `${length} characters - Excellent detail`;
+        counter.style.color = '#10b981';
+      } else {
+        counter.textContent = `${length} characters - Consider shortening`;
+        counter.style.color = '#f59e0b';
+      }
+    }
+    
+    // Back to Edit from Download section
+    function backToEdit() {
+      document.getElementById('downloadSection').style.display = 'none';
+      document.getElementById('reviewSection').style.display = 'block';
+      document.getElementById('reviewSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    
+    // Test schema in validator
+    function testSchema() {
+      // Schema validator expects the code as a URL parameter
+      const encodedSchema = encodeURIComponent(currentState.schema);
+      const validatorUrl = `https://validator.schema.org/#url=data:application/ld%2Bjson,${encodedSchema}`;
+      window.open(validatorUrl, '_blank');
+    }
+
+    // Download
+    function downloadJSON() {
+      const blob = new Blob([currentState.schema], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'schema.json';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function downloadTXT() {
+      const blob = new Blob([currentState.schema], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'schema.txt';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+  </script>
+</body>
+</html>
